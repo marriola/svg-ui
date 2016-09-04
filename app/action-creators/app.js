@@ -28,5 +28,13 @@ export default new ActionCreator({
             type: app.action("close"),
             id
         };
+    },
+
+    iconize: function (id, state) {
+        return {
+            type: app.action("iconize"),
+            state,
+            id
+        };
     }
 });

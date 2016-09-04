@@ -2,6 +2,7 @@ import { connect } from "decorators";
 import { uniqueIdentifier } from "utils";
 import React from "react";
 import Actions from "action-creators";
+import IconizedWindow from "components/IconizedWindow";
 
 @connect("app")
 export default class Application extends React.Component {
@@ -13,13 +14,16 @@ export default class Application extends React.Component {
         this.raiseWindow = this.raiseWindow.bind(this);
         this.closeWindow = this.closeWindow.bind(this);
         this.openWindow = this.openWindow.bind(this);
+        this.iconizeWindow = this.iconizeWindow.bind(this);
 
         Actions.App.addWindows(
             React.Children.map(this.props.children, x => React.cloneElement(x, {
                 id: uniqueIdentifier(),
+                iconized: false,
                 raiseWindow: this.raiseWindow,
                 closeWindow: this.closeWindow,
-                openWindow: this.openWindow
+                openWindow: this.openWindow,
+                iconizeWindow: this.iconizeWindow
             }))
         );
     }
@@ -27,14 +31,20 @@ export default class Application extends React.Component {
     openWindow(window) {
         Actions.App.addWindow(React.cloneElement(window, {
             id: uniqueIdentifier(),
+            iconized: false,
             raiseWindow: this.raiseWindow,
             closeWindow: this.closeWindow,
-            openWindow: this.openWindow
+            openWindow: this.openWindow,
+            iconizeWindow: this.iconizeWindow
         }));
     }
 
     closeWindow(id) {
         Actions.App.close(id);
+    }
+
+    iconizeWindow(id, state) {
+        Actions.App.iconize(id, state);
     }
     
     raiseWindow(id) {
@@ -42,9 +52,22 @@ export default class Application extends React.Component {
     }
     
     render() {
+        let icons = this.props.app.windows
+                        .filter(w => w.props.iconized)
+                        .map(w => <IconizedWindow y={0} key={"iw" + w.props.id}
+                                                  windowId={w.props.id} title={w.props.title}
+                                                  iconizeWindow={this.iconizeWindow} />);
+
+        for (let i in icons) {
+            icons[i] = React.cloneElement(icons[i], { x: i * 66 });
+        }
+        
+        let windows = this.props.app.windows.filter(w => !w.props.iconized);
+        
         return (
             <g>
-                {this.props.app.windows}
+                {icons}
+                {windows}
             </g>
         );
     }

@@ -3,10 +3,10 @@ import Button from "components/Button";
 
 let Titlebar = ({
     id,
-    x, y,
+    x = 0, y = 0,
     width, height,
     title, className,
-    closeWindow,
+    closeWindow, iconizeWindow,
     touchStart, mouseDown, touchEnd, mouseUp, touchMove, mouseMove
 }) => {
     let copyPathId = "cp-" + id;
@@ -35,6 +35,11 @@ let Titlebar = ({
             <Button x={8} y={8} parentX={0} parentY={0} width={16} height={16}
                     click={closeWindow}>
                 &#x2716;
+            </Button>
+
+            <Button x={x + width - 16 - 8} y={8} parentX={0} parentY={0} width={16} height={16}
+                    click={iconizeWindow}>
+                _
             </Button>
         </g>
     );

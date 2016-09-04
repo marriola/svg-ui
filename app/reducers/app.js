@@ -1,3 +1,4 @@
+import React from "react";
 import createReducer from "reducers";
 
 export default createReducer({
@@ -5,6 +6,12 @@ export default createReducer({
 
     defaultValue: {
         windows: []
+    },
+
+    methods: {
+        findWindow: function (state, id) {
+            return state.windows.findIndex(w => w.props.id == id);
+        }
     },
 
     actions: {
@@ -29,7 +36,7 @@ export default createReducer({
         },
 
         raise: function (state, action) {
-            let index = state.windows.findIndex(w => w.props.id == action.id);
+            let index = this.findWindow(state, action.id);
             let topWindow = state.windows[index];
             
             let windows = state.windows.slice(0, index)
@@ -43,9 +50,24 @@ export default createReducer({
         },
 
         close: function (state, action) {
-            let index = state.windows.findIndex(w => w.props.id == action.id);
+            let index = this.findWindow(state, action.id);
+            let windows = state.windows.slice(0, index)
+                               .concat(state.windows.slice(index + 1));
+
+            return {
+                ...state,
+                windows
+            };
+        },
+
+        iconize: function (state, action) {
+            let index = this.findWindow(state, action.id);
+            let window = state.windows[index];
+
+            window = React.cloneElement(window, { iconized: action.state });
 
             let windows = state.windows.slice(0, index)
+                               .concat(window)
                                .concat(state.windows.slice(index + 1));
 
             return {

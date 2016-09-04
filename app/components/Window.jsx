@@ -1,3 +1,4 @@
+import $ from "jquery";
 import React from "react";
 import Titlebar from "components/Titlebar";
 import Body from "components/Body";
@@ -25,8 +26,9 @@ export default class Window extends React.Component {
         };
 
         this.move = this.move.bind(this);
-        this.startDrag = this.startDrag.bind(this);
         this.closeWindow = this.closeWindow.bind(this);
+        this.iconizeWindow = this.iconizeWindow.bind(this);
+        this.startDrag = this.startDrag.bind(this);
         this.mouseDown = this.mouseDown.bind(this);
         this.touchStart = this.touchStart.bind(this);
         this.mouseUp = this.mouseUp.bind(this);
@@ -43,13 +45,23 @@ export default class Window extends React.Component {
             dragDiffY: this.state.y - y
         });
     }
+
+    setPosition(x, y) {
+        this.refs.me.setAttribute("transform", `translate(${x}, ${y})`);
+    }
     
     move(x, y) {
+        this.setPosition(x + this.state.dragDiffX, y + this.state.dragDiffY);
+        
         this.setState({
-            moving: true,
-            x: x + this.state.dragDiffX,
-            y: y + this.state.dragDiffY
+            moving: true //,
+            /* x: x + this.state.dragDiffX,
+             * y: y + this.state.dragDiffY*/
         });        
+    }
+
+    componentDidMount() {
+        this.setPosition(this.state.x, this.state.y);
     }
 
     mouseDown(event) {
@@ -86,6 +98,10 @@ export default class Window extends React.Component {
         this.props.closeWindow(this.props.id);
     }
 
+    iconizeWindow() {
+        this.props.iconizeWindow(this.props.id, !this.props.iconized);
+    }
+
     render() {
         let titlebarHeight = 32;
         let bodyY = titlebarHeight - 8;
@@ -93,15 +109,17 @@ export default class Window extends React.Component {
 
         let outlineClass = this.state.moving ? null : "hidden";
         let windowClass = this.state.moving ? "hidden" : null;
-        
+
+        /*         <g transform={`translate(${this.state.x}, ${this.state.y})`} ref="me"> */
+
         return (
-            <g transform={`translate(${this.state.x}, ${this.state.y})`}>
+            <g ref="me">
                 <rect stroke="black" fill="transparent" className={outlineClass}
                       rx="5" width={this.state.width} height={this.state.height} />
                 
                 <Titlebar title={this.props.title} id={"t" + this.props.id} className={windowClass}
                           width={this.state.width} height={titlebarHeight}
-                          closeWindow={this.closeWindow}
+                          closeWindow={this.closeWindow} iconizeWindow={this.iconizeWindow}
                           touchStart={this.touchStart} touchEnd={this.touchEnd} touchMove={this.touchMove}
                           mouseDown={this.mouseDown} mouseUp={this.mouseUp} mouseMove={this.mouseMove} />
                 
