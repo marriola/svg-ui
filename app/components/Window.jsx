@@ -118,6 +118,7 @@ export default class Window extends React.Component {
                 
                 <Titlebar title={this.props.title} id={"t" + this.props.id} className={windowClass}
                           width={this.state.width} height={titlebarHeight}
+                          closeButton={this.props.closeButton} iconizeButton={this.props.iconizeButton}
                           closeWindow={this.closeWindow} iconizeWindow={this.iconizeWindow}
                           touchStart={this.touchStart} touchEnd={this.touchEnd} touchMove={this.touchMove}
                           mouseDown={this.mouseDown} mouseUp={this.mouseUp} mouseMove={this.mouseMove} />

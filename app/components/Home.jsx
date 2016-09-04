@@ -30,7 +30,9 @@ export default class Home extends React.Component {
         let height = index == 5 ? 89 : 96;
         
         window.openWindow(
-            <Window x={this.state.x} y={this.state.y} width={148} height={156} title={title} key={uniqueIdentifier()}>
+            <Window x={this.state.x} y={this.state.y} width={148} height={156}
+                    closeButton={true} iconizeButton={true}
+                    title={title} key={uniqueIdentifier()}>
                 <Text x={5} fill="#ddd">
                     Hello
                 </Text>
@@ -49,17 +51,23 @@ export default class Home extends React.Component {
     render() {
         return (
             <Application store={this.props.store}>
-                <Window key={uniqueIdentifier()} title="hello" x={10} y={10} width={192} height={128}>
-                    <Button x={5} y={0} width={45} height={20} click={this.openWindow.bind(this)}>
+                <Window x={10} y={10} width={192} height={128}
+                        key={uniqueIdentifier()} title="hello"
+                        iconizeButton={true}>
+                    <Button x={5} y={0} width={45} height={20}
+                            click={this.openWindow.bind(this)}>
                         Open
                     </Button>
 
-                    <Button x={60} y={0} width={112} height={64} click={window.alert.bind(null, "jagshemash!")}>
+                    <Button x={60} y={0} width={112} height={64}
+                            click={window.alert.bind(null, "jagshemash!")}>
                         <Image src="kazakhstan.gif" width={96} height={48} />
                     </Button>
                 </Window>
 
-                <Window key={uniqueIdentifier()} title="nothing in here" x={320} y={240} width={192} height={64}>
+                <Window x={320} y={240} width={192} height={64}
+                        key={uniqueIdentifier()} title="nothing in here"
+                        closeButton={true} iconizeButton={true}>
                 </Window>
             </Application>
         );

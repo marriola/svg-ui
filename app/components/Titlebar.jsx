@@ -6,6 +6,7 @@ let Titlebar = ({
     x = 0, y = 0,
     width, height,
     title, className,
+    closeButton = false, iconizeButton = false,
     closeWindow, iconizeWindow,
     touchStart, mouseDown, touchEnd, mouseUp, touchMove, mouseMove
 }) => {
@@ -32,15 +33,17 @@ let Titlebar = ({
                 {title}
             </text>
 
-            <Button x={8} y={8} parentX={0} parentY={0} width={16} height={16}
-                    click={closeWindow}>
-                &#x2716;
-            </Button>
+            { closeButton ?
+              <Button x={8} y={8} parentX={0} parentY={0} width={16} height={16}
+                      click={closeWindow}>
+                  &#x2716;
+              </Button> : null }
 
-            <Button x={x + width - 16 - 8} y={8} parentX={0} parentY={0} width={16} height={16}
-                    click={iconizeWindow}>
-                _
-            </Button>
+            { iconizeButton ?
+              <Button x={x + width - 16 - 8} y={8} parentX={0} parentY={0} width={16} height={16}
+                      click={iconizeWindow}>
+                  _
+              </Button> : null }
         </g>
     );
 }
