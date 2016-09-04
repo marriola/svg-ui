@@ -24,17 +24,18 @@ export default class Home extends React.Component {
     
     openWindow() {
         let index = this.state.number % 9;
-        let planet = "planets/" + planets[index] + ".png";
+        let title = planets[index];
+        let src = "planets/" + planets[index] + ".png";
         let width = index == 5 ? 128 : 96;
         let height = index == 5 ? 89 : 96;
         
         window.openWindow(
-            <Window x={this.state.x} y={this.state.y} width={148} height={156} title="woah" key={uniqueIdentifier()}>
+            <Window x={this.state.x} y={this.state.y} width={148} height={156} title={title} key={uniqueIdentifier()}>
                 <Text x={5} fill="#ddd">
                     Hello
                 </Text>
                 
-                <Image src={planet} x={5} y={16} width={width} height={height} />
+                <Image src={src} x={5} y={16} width={width} height={height} />
             </Window>
         );
 
