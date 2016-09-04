@@ -16,7 +16,7 @@ let Body = ({id, x, y, width, height, className, children }) => {
                 </clipPath>
             </defs>
 
-            <rect clipPath={cpUri} rx="5"
+            <rect clipPath={cpUri} rx="7"
                   x="0" y={y}
                   width={width} height={height + 5}
                   className="body"

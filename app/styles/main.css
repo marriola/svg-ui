@@ -38,6 +38,8 @@ svg .hidden * {
 
 svg .titlebar > rect {
     fill: #001;
+    stroke-width: 2px;
+    stroke: #242428;
 }
 
 svg .titlebar > text {
@@ -46,6 +48,8 @@ svg .titlebar > text {
 
 svg rect.body {
     fill: #484850;
+    stroke-width: 2px;
+    stroke: #242428;
 }
 
 svg g.button > rect {

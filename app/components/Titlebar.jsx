@@ -20,7 +20,7 @@ let Titlebar = ({
                 </clipPath>
             </defs>
 
-            <rect clipPath={copyPathUri} rx="5"
+            <rect clipPath={copyPathUri} rx="7"
                   x="0" y="0"
                   width={width} height={height}
                   onTouchStart={touchStart} onMouseDown={mouseDown} onTouchEnd={touchEnd} onMouseUp={mouseUp} onTouchMove={touchMove} onMouseMove={mouseMove}
