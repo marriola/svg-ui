@@ -17,6 +17,7 @@ export default class Window extends React.Component {
         super(props);
         this.state = {
             drag: false,
+            iconized: this.props.iconized,
             x: this.props.x,
             y: this.props.y,
             width: this.props.width,
@@ -51,19 +52,19 @@ export default class Window extends React.Component {
     }
     
     move(x, y) {
-        this.setPosition(x + this.state.dragDiffX, y + this.state.dragDiffY);
+        /*         this.setPosition(x + this.state.dragDiffX, y + this.state.dragDiffY);*/
         
         this.setState({
-            moving: true //,
-            /* x: x + this.state.dragDiffX,
-             * y: y + this.state.dragDiffY*/
+            moving: true,
+            x: x + this.state.dragDiffX,
+            y: y + this.state.dragDiffY
         });        
     }
 
-    componentDidMount() {
-        this.setPosition(this.state.x, this.state.y);
-    }
-
+    /* componentDidMount() {
+     *     this.setPosition(this.state.x, this.state.y);
+     * }
+     */
     mouseDown(event) {
         this.props.raiseWindow(this.props.id);
         this.startDrag(event.pageX, event.pageY);
@@ -110,10 +111,8 @@ export default class Window extends React.Component {
         let outlineClass = this.state.moving ? null : "hidden";
         let windowClass = this.state.moving ? "hidden" : null;
 
-        /*         <g transform={`translate(${this.state.x}, ${this.state.y})`} ref="me"> */
-
         return (
-            <g ref="me">
+            <g transform={`translate(${this.state.x}, ${this.state.y})`} ref="me">
                 <rect stroke="black" fill="transparent" className={outlineClass}
                       rx="5" width={this.state.width} height={this.state.height} />
                 
