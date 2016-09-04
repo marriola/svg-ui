@@ -11,7 +11,7 @@ let Application = () => (
             </Button>
 
             <Button x={45} y={5} width={128} height={64} click={window.alert.bind(null, "jagshemash!")}>
-                <Image src="kazakhstan.gif" x={0} y={0} width={96} height={48} />
+                <Image src="kazakhstan.gif" width={96} height={48} />
             </Button>
         </Window>
     </g>

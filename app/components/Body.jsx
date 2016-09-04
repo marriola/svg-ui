@@ -16,7 +16,7 @@ let Body = ({id, x, y, width, height, className, children }) => {
             <rect clipPath={`url(#cp-${id})`} rx="5"
                   x="0" y={y}
                   width={width} height={height + 5}
-                  style={{ fill: "#555" }}
+                  className="body"
             />
 
             {children}

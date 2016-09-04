@@ -18,8 +18,24 @@ svg rect, svg path {
     transition: 0.1s ease-in-out opacity;
 }
 
-.hidden,
-.hidden * {
+svg .hidden,
+svg .hidden * {
     opacity: 0;
 }
 
+
+svg rect.titlebar {
+    fill: #002;
+}
+
+svg rect.titlebar + text {
+    fill: #eee;
+}
+
+svg rect.body {
+    fill: #445;
+}
+
+svg g.button > rect {
+    fill: #000;
+}

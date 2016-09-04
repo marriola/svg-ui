@@ -12,15 +12,13 @@ let Titlebar = ({id, x, y, width, height, title, className, mouseDown, mouseUp, 
                 </clipPath>
             </defs>
 
-            <rect clipPath={copyPathUri} rx="5"
+            <rect clipPath={copyPathUri} className="titlebar" rx="5"
                   x="0" y="0"
                   width={width} height={height}
-                  style={{ fill: "#000" }}
                   onMouseDown={mouseDown} onMouseMove={mouseMove} onMouseUp={mouseUp} onMouseLeave={mouseUp} />
 
             <text x={width / 2} y={height / 2}
                   textAnchor="middle"
-                  style={{ fill: "#eee" }}
                   onMouseDown={mouseDown} onMouseMove={mouseMove} onMouseUp={mouseUp} onMouseLeave={mouseUp}>
                 {title}
             </text>
