@@ -8,7 +8,6 @@ let Titlebar = ({
     title, className,
     closeButton = false, iconizeButton = false,
     closeWindow, iconizeWindow
-    /*     touchStart, mouseDown, touchEnd, mouseUp, touchMove, mouseMove*/
 }) => {
     let copyPathId = "cp-" + id;
     let copyPathUri = "url(#" + copyPathId + ")";
@@ -27,8 +26,7 @@ let Titlebar = ({
             />
             
             <text x={width / 2} y={height / 2}
-                  textAnchor="middle"
-            >
+                  textAnchor="middle">
                 {title}
             </text>
 
