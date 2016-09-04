@@ -1,0 +1,25 @@
+svg {
+    background: url('bw.png')
+}
+
+svg text {
+    cursor: default;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+}
+
+svg text::selection {
+    background: none;
+}
+
+svg rect, svg path {
+    transition: 0.1s ease-in-out opacity;
+}
+
+.hidden,
+.hidden * {
+    opacity: 0;
+}
+
