@@ -47,32 +47,59 @@ export default class Button extends React.Component {
 
         let cpId = "btn-" + this.props.id;
         let cpUri = "url(#" + cpId + ")";
-        
-        return (
-            <g>
-                <defs>
-                    <clipPath id={cpId}>
-                        <rect x={x} y={y} width={width} height={height} />
-                    </clipPath>
-                </defs>
-                
-                <rect x={x} y={y} width={width} height={height}
-                      style={{ fill: "#000" }}
-                      onMouseUp={this.mouseUp} onMouseDown={this.mouseDown} onMouseLeave={this.mouseLeave} />
 
-                <path d={ `M${x} ${y + height} L${x} ${y} L${x + width} ${y}` } stroke={topLeft}
-                      onMouseUp={this.mouseUp} onMouseDown={this.mouseDown} onMouseLeave={this.mouseLeave} />
+        let children;
+        let offX, offY;
 
-                <path d={ `M${x + width} ${y} L${x + width} ${y + height} L${x} ${y + height}` } stroke={bottomRight}
-                      onMouseUp={this.mouseUp} onMouseDown={this.mouseDown} onMouseLeave={this.mouseLeave} />
-
-                <text x={x + width / 2} y={y + height / 2} fill="white"
+        if (typeof(this.props.children) === "string") {
+            children =
+                <text x={width / 2} y={height / 2} fill="white"
                       clipPath={cpUri}
                       fontSize="10pt"
                       alignmentBaseline="middle" textAnchor="middle"
                       onMouseUp={this.mouseUp} onMouseDown={this.mouseDown} onMouseLeave={this.mouseLeave}>
-                    {this.props.text}
-                </text>
+                    {this.props.children}
+                </text>;
+        }
+        else {
+            let subchildren = React.Children.map(this.props.children, e => {
+                offX = (this.props.width - e.props.width - 2) / 2 + 1;
+                offY = (this.props.height - e.props.height - 2) / 2 + 1;
+
+                return React.cloneElement(e, {
+                    clipPath: cpUri,
+                    onMouseUp: this.mouseUp,
+                    onMouseDown: this.mouseDown,
+                    onMouseLeave: this.mouseLeave
+                });
+            });
+
+            
+            children =
+                <g transform={`translate(${offX}, ${offY})`}>
+                    {subchildren}
+                </g>;
+        }
+
+        return (
+            <g transform={`translate(${x}, ${y})`}>
+                <defs>
+                    <clipPath id={cpId}>
+                        <rect x="0" y="0" width={width} height={height} />
+                    </clipPath>
+                </defs>
+                
+                <rect x="0" y="0" width={width} height={height}
+                      style={{ fill: "#000" }}
+                      onMouseUp={this.mouseUp} onMouseDown={this.mouseDown} onMouseLeave={this.mouseLeave} />
+
+                <path d={ `M0 ${height} L0 0 L${width} 0` } stroke={topLeft}
+                      onMouseUp={this.mouseUp} onMouseDown={this.mouseDown} onMouseLeave={this.mouseLeave} />
+
+                <path d={ `M${width} 0 L${width} ${height} L0 ${height}` } stroke={bottomRight}
+                      onMouseUp={this.mouseUp} onMouseDown={this.mouseDown} onMouseLeave={this.mouseLeave} />
+                
+                {children}
             </g>
         );
     }
