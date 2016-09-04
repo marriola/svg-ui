@@ -10,37 +10,7 @@ svg {
     background: url('bw.png');
     border-radius: 5px;
     width: 100%;
-    height: 768px;
-}
-
-@media (max-device-width: 800px) {
-    svg {
-        height: 480px;
-    }
-}
-
-@media (max-device-width: 640px) {
-    svg {
-        height: 340px;
-    }
-}
-
-@media (max-device-width: 568px) {
-    svg {
-        height: 300px;
-    }
-}
-
-@media (max-device-width: 360px) {
-    svg {
-        height: 620px;
-    }
-}
-
-@media (max-device-width: 320px) {
-    svg {
-        height: 548px;
-    }
+    height: 100vh;
 }
 
 svg text {

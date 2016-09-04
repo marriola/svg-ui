@@ -8,30 +8,40 @@ import Image from "components/Image";
 import Text from "components/Text";
 import Actions from "action-creators";
 
+const planets = ["mercury", "venus", "earth", "mars", "jupiter", "saturn", "uranus", "neptune", "pluto"];
+
 @connect("app")
 export default class Home extends React.Component {
     constructor(props) {
         super(props);
         
         this.state = {
-            number: 1
+            number: 0,
+            x: 60,
+            y: 30
         };
     }
     
     openWindow() {
-        let x = Math.random() * (1024 - 128);
-        let y = Math.random() * (768 - 64);
+        let index = this.state.number % 9;
+        let planet = "planets/" + planets[index] + ".png";
+        let width = index == 5 ? 128 : 96;
+        let height = index == 5 ? 89 : 96;
         
         window.openWindow(
-            <Window x={x} y={y} width={128} height={64} title="woah" key={uniqueIdentifier()}>
-                <Text fill="#ddd">
-                    Hello #{this.state.number}
+            <Window x={this.state.x} y={this.state.y} width={148} height={156} title="woah" key={uniqueIdentifier()}>
+                <Text x={5} fill="#ddd">
+                    Hello
                 </Text>
+                
+                <Image src={planet} x={5} y={16} width={width} height={height} />
             </Window>
         );
 
         this.setState({
-            number: this.state.number + 1
+            number: this.state.number + 1,
+            x: this.state.x + 30,
+            y: this.state.y + 30
         });
     }
 
