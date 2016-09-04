@@ -3,6 +3,9 @@ import React from "react";
 let Body = ({id, x, y, width, height, className, children }) => {
     children = React.Children.map(children, x => React.cloneElement(x, { id }));
 
+    let cpId = "cp-" + id;
+    let cpUri = "url(#" + cpId + ")";
+
     return (
         <g className={className}>
             <defs>
@@ -13,13 +16,15 @@ let Body = ({id, x, y, width, height, className, children }) => {
                 </clipPath>
             </defs>
 
-            <rect clipPath={`url(#cp-${id})`} rx="5"
+            <rect clipPath={cpUri} rx="5"
                   x="0" y={y}
                   width={width} height={height + 5}
                   className="body"
             />
 
-            {children}
+            <g transform={`translate(0, 35)`}>
+                {children}
+            </g>
         </g>
     );
 };

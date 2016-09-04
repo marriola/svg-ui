@@ -1,35 +1,50 @@
+import { connect } from "decorators";
 import { uniqueIdentifier } from "utils";
 import React from "react";
+import Actions from "action-creators";
 
+@connect("app")
 export default class Application extends React.Component {
     constructor(props) {
         super(props);
 
-        this.raiseWindow = this.raiseWindow.bind(this);
+        window.openWindow = this.openWindow.bind(this);
 
-        this.state = {
-            windows: React.Children.map(this.props.children, x => React.cloneElement(x, {
+        this.raiseWindow = this.raiseWindow.bind(this);
+        this.closeWindow = this.closeWindow.bind(this);
+        this.openWindow = this.openWindow.bind(this);
+
+        Actions.App.addWindows(
+            React.Children.map(this.props.children, x => React.cloneElement(x, {
                 id: uniqueIdentifier(),
-                raiseWindow: this.raiseWindow
+                raiseWindow: this.raiseWindow,
+                closeWindow: this.closeWindow,
+                openWindow: this.openWindow
             }))
-        };
+        );
     }
 
-    raiseWindow(id) {
-        let index = this.state.windows.findIndex(w => w.props.id == id);
-        let topWindow = this.state.windows[index];
-        
-        let windows = this.state.windows.slice(0, index)
-            .concat(this.state.windows.slice(index + 1))
-            .concat(topWindow);
+    openWindow(window) {
+        Actions.App.addWindow(React.cloneElement(window, {
+            id: uniqueIdentifier(),
+            raiseWindow: this.raiseWindow,
+            closeWindow: this.closeWindow,
+            openWindow: this.openWindow
+        }));
+    }
 
-        this.setState({ windows });
+    closeWindow(id) {
+        Actions.App.close(id);
+    }
+    
+    raiseWindow(id) {
+        Actions.App.raise(id);
     }
     
     render() {
         return (
             <g>
-                {this.state.windows}
+                {this.props.app.windows}
             </g>
         );
     }

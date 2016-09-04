@@ -24,9 +24,13 @@ export default class Window extends React.Component {
             dragDiffY: 0
         };
 
+        this.closeWindow = this.closeWindow.bind(this);
         this.mouseDown = this.mouseDown.bind(this);
+        this.touchStart = this.mouseDown;
         this.mouseUp = this.mouseUp.bind(this);
+        this.touchEnd = this.mouseUp;
         this.mouseMove = this.mouseMove.bind(this);
+        this.touchMove = this.mouseMove;
     }
 
     mouseDown(event) {
@@ -57,18 +61,17 @@ export default class Window extends React.Component {
         }
     }
 
+    closeWindow() {
+        this.props.closeWindow(this.props.id);
+    }
+
     render() {
         let titlebarHeight = 32;
-        let bodyY = 0 + titlebarHeight - 8;
+        let bodyY = titlebarHeight - 8;
         let bodyHeight = this.state.height - titlebarHeight;
 
         let outlineClass = this.state.moving ? null : "hidden";
         let windowClass = this.state.moving ? "hidden" : null;
-
-        let children = React.Children.map(this.props.children, x => React.cloneElement(x, {
-            parentX: 0,
-            parentY: 32
-        }));
         
         return (
             <g transform={`translate(${this.state.x}, ${this.state.y})`}>
@@ -77,13 +80,14 @@ export default class Window extends React.Component {
                 
                 <Titlebar title={this.props.title} id={"t" + this.props.id} className={windowClass}
                           width={this.state.width} height={titlebarHeight}
-                          mouseDown={this.mouseDown} mouseUp={this.mouseUp} mouseMove={this.mouseMove} />
+                          closeWindow={this.closeWindow}
+                          touchStart={this.touchStart} mouseDown={this.mouseDown} touchEnd={this.touchEnd} mouseUp={this.mouseUp} touchMove={this.touchMove} mouseMove={this.mouseMove} />
                 
                 <Body id={"b" + this.props.id}
                       className={windowClass}
                       x={0} y={bodyY}
                       width={this.state.width} height={bodyHeight}>
-                    {children}
+                    {this.props.children}
                 </Body>
             </g>
         );
