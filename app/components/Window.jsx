@@ -33,6 +33,7 @@ export default class Window extends React.Component {
     mouseDown(event) {
         this.setState({
             drag: true,
+            moving: false,
             dragDiffX: this.state.x - event.pageX,
             dragDiffY: this.state.y - event.pageY
         });
@@ -40,13 +41,15 @@ export default class Window extends React.Component {
 
     mouseUp(event) {
         this.setState({
-            drag: false
+            drag: false,
+            moving: false
         });
     }
 
     mouseMove(event) {
         if (this.state.drag) {
             this.setState({
+                moving: true,
                 x: event.pageX + this.state.dragDiffX,
                 y: event.pageY + this.state.dragDiffY
             });
@@ -58,8 +61,8 @@ export default class Window extends React.Component {
         let bodyY = 0 + titlebarHeight - 8;
         let bodyHeight = this.state.height - titlebarHeight;
 
-        let outlineClass = this.state.drag ? null : "hidden";
-        let windowClass = this.state.drag ? "hidden" : null;
+        let outlineClass = this.state.moving ? null : "hidden";
+        let windowClass = this.state.moving ? "hidden" : null;
 
         let children = React.Children.map(this.props.children, x => React.cloneElement(x, {
             parentX: 0,

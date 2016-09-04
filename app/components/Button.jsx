@@ -2,6 +2,15 @@ import React from "react";
 import { uniqueIdentifier } from "utils";
 
 export default class Button extends React.Component {
+    static propTypes = {
+        x: React.PropTypes.number,
+        y: React.PropTypes.number,
+        width: React.PropTypes.number,
+        height: React.PropTypes.number,
+        px: React.PropTypes.number,
+        py: React.PropTypes.number
+    };
+    
     constructor(props) {
         super(props);
 
@@ -46,14 +55,15 @@ export default class Button extends React.Component {
         let y = this.props.y + this.props.parentY;
         let { width, height } = this.props;
 
-        let topLeft = this.state.pushed ? "gray" : "white";
-        let bottomRight = this.state.pushed ? "white" : "gray";
+        let topLeft = this.state.pushed ? "dark" : "light";
+        let bottomRight = this.state.pushed ? "light" : "dark";
 
         let cpId = "cp-" + this.state.id;
         let cpUri = "url(#" + cpId + ")";
 
         let children;
-        let offX, offY;
+        let offsetX = this.state.pushed ? 1 : 0;
+        let offsetY = this.state.pushed ? 1 : 0;
 
         if (typeof(this.props.children) === "string") {
             children =
@@ -66,9 +76,9 @@ export default class Button extends React.Component {
                 </text>;
         }
         else {
-            let subchildren = React.Children.map(this.props.children, e => {
-                offX = (this.props.width - e.props.width - 2) / 2 + 1;
-                offY = (this.props.height - e.props.height - 2) / 2 + 1;
+            children = React.Children.map(this.props.children, e => {
+                offsetX += (this.props.width - e.props.width - 2) / 2 + 1;
+                offsetY += (this.props.height - e.props.height - 2) / 2 + 1;
 
                 return React.cloneElement(e, {
                     clipPath: cpUri,
@@ -77,13 +87,12 @@ export default class Button extends React.Component {
                     onMouseLeave: this.mouseLeave
                 });
             });
-
-            
-            children =
-                <g transform={`translate(${offX}, ${offY})`}>
-                    {subchildren}
-                </g>;
         }
+
+        children = 
+            <g transform={`translate(${offsetX}, ${offsetY})`}>
+                {children}
+            </g>;
 
         return (
             <g transform={`translate(${x}, ${y})`} className="button">
@@ -95,11 +104,11 @@ export default class Button extends React.Component {
                 
                 <rect x="0" y="0" width={width} height={height}
                       onMouseUp={this.mouseUp} onMouseDown={this.mouseDown} onMouseLeave={this.mouseLeave} />
-
-                <line x1={0} y1={height} x2={0} y2={0} stroke={topLeft} />
-                <line x1={0} y1={0} x2={width} y2={0} stroke={topLeft} />
-                <line x1={width} y1={0} x2={width} y2={height} stroke={bottomRight} />
-                <line x1={width} y1={height} x2={0} y2={height} stroke={bottomRight} />
+                
+                <line x1={0} y1={height} x2={0} y2={0} className={topLeft} />
+                <line x1={0} y1={0} x2={width} y2={0} className={topLeft} />
+                <line x1={width} y1={0} x2={width} y2={height} className={bottomRight} />
+                <line x1={width} y1={height} x2={0} y2={height} className={bottomRight} />
 
                 {children}
             </g>

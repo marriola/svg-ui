@@ -21,14 +21,15 @@ svg rect, svg path {
 svg .hidden,
 svg .hidden * {
     opacity: 0;
+    transition: 0.1s ease-in-out opacity;
 }
 
 
-svg rect.titlebar {
+svg .titlebar > rect {
     fill: #002;
 }
 
-svg rect.titlebar + text {
+svg .titlebar > text {
     fill: #eee;
 }
 
@@ -38,4 +39,12 @@ svg rect.body {
 
 svg g.button > rect {
     fill: #000;
+}
+
+svg g.button > line.light {
+    stroke: #fff;
+}
+
+svg g.button > line.dark {
+    stroke: #777;
 }
