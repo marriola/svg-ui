@@ -3,7 +3,7 @@ import Button from "components/Button";
 
 let Titlebar = ({id, x, y, width, height, title, className, mouseDown, mouseUp, mouseMove}) => {
     let copyPathId = "cp-" + id;
-    let copyPathUri = "url(" + copyPathId + ")";
+    let copyPathUri = "url(#" + copyPathId + ")";
     
     return (
         <g className={"titlebar " + className}>

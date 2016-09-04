@@ -75,11 +75,11 @@ export default class Window extends React.Component {
                 <rect stroke="black" fill="transparent" className={outlineClass}
                       rx="5" width={this.state.width} height={this.state.height} />
                 
-                <Titlebar title={this.props.title} id={"t" + this.state.key} className={windowClass}
+                <Titlebar title={this.props.title} id={"t" + this.props.id} className={windowClass}
                           width={this.state.width} height={titlebarHeight}
                           mouseDown={this.mouseDown} mouseUp={this.mouseUp} mouseMove={this.mouseMove} />
                 
-                <Body id={"b" + this.state.key}
+                <Body id={"b" + this.props.id}
                       className={windowClass}
                       x={0} y={bodyY}
                       width={this.state.width} height={bodyHeight}>

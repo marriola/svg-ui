@@ -17,10 +17,11 @@ export default class Application extends React.Component {
 
     raiseWindow(id) {
         let index = this.state.windows.findIndex(w => w.props.id == id);
+        let topWindow = this.state.windows[index];
         
         let windows = this.state.windows.slice(0, index)
             .concat(this.state.windows.slice(index + 1))
-            .concat(this.state.windows[index]);
+            .concat(topWindow);
 
         this.setState({ windows });
     }
