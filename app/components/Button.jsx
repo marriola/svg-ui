@@ -1,10 +1,12 @@
 import React from "react";
+import { uniqueIdentifier } from "utils";
 
 export default class Button extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
+            id: "btn" + uniqueIdentifier(),
             pushed: false
         };
 
@@ -47,7 +49,7 @@ export default class Button extends React.Component {
         let topLeft = this.state.pushed ? "gray" : "white";
         let bottomRight = this.state.pushed ? "white" : "gray";
 
-        let cpId = "btn-" + this.props.id;
+        let cpId = "cp-" + this.state.id;
         let cpUri = "url(#" + cpId + ")";
 
         let children;
@@ -84,7 +86,7 @@ export default class Button extends React.Component {
         }
 
         return (
-            <g transform={`translate(${x}, ${y})`}>
+            <g transform={`translate(${x}, ${y})`} className="button">
                 <defs>
                     <clipPath id={cpId}>
                         <rect x="0" y="0" width={width} height={height} />
@@ -92,15 +94,13 @@ export default class Button extends React.Component {
                 </defs>
                 
                 <rect x="0" y="0" width={width} height={height}
-                      style={{ fill: "#000" }}
                       onMouseUp={this.mouseUp} onMouseDown={this.mouseDown} onMouseLeave={this.mouseLeave} />
 
-                <path d={ `M0 ${height} L0 0 L${width} 0` } stroke={topLeft}
-                      onMouseUp={this.mouseUp} onMouseDown={this.mouseDown} onMouseLeave={this.mouseLeave} />
+                <line x1={0} y1={height} x2={0} y2={0} stroke={topLeft} />
+                <line x1={0} y1={0} x2={width} y2={0} stroke={topLeft} />
+                <line x1={width} y1={0} x2={width} y2={height} stroke={bottomRight} />
+                <line x1={width} y1={height} x2={0} y2={height} stroke={bottomRight} />
 
-                <path d={ `M${width} 0 L${width} ${height} L0 ${height}` } stroke={bottomRight}
-                      onMouseUp={this.mouseUp} onMouseDown={this.mouseDown} onMouseLeave={this.mouseLeave} />
-                
                 {children}
             </g>
         );
