@@ -1,10 +1,10 @@
-import { uniqueIdentifier } from "utils";
 import React from "react";
 import Titlebar from "components/Titlebar";
 import Body from "components/Body";
 
 export default class Window extends React.Component {
     static propTypes = {
+        order: React.PropTypes.number,
         x: React.PropTypes.number,
         y: React.PropTypes.number,
         width: React.PropTypes.number,
@@ -15,7 +15,6 @@ export default class Window extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            key: uniqueIdentifier(),
             drag: false,
             x: this.props.x,
             y: this.props.y,
@@ -31,6 +30,8 @@ export default class Window extends React.Component {
     }
 
     mouseDown(event) {
+        this.props.raiseWindow(this.props.id);
+        
         this.setState({
             drag: true,
             moving: false,

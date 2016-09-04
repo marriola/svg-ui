@@ -1,7 +1,7 @@
 {
-  "name": "brunch-app",
-  "description": "Description",
-  "author": "Your Name",
+  "name": "svg-ui",
+  "description": "SVG UI",
+  "author": "Matt Arriola",
   "version": "0.1.0",
   "repository": {
     "type": "git",

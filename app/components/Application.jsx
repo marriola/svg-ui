@@ -1,20 +1,37 @@
+import { uniqueIdentifier } from "utils";
 import React from "react";
-import Window from "components/Window";
-import Button from "components/Button";
-import Image from "components/Image";
 
-let Application = () => (
-    <g>
-        <Window title="hello" x={10} y={10} width={192} height={128}>
-            <Button x={5} y={5} width={30} height={20} click={window.alert.bind(null, 'click')}>
-                OK
-            </Button>
+export default class Application extends React.Component {
+    constructor(props) {
+        super(props);
 
-            <Button x={45} y={5} width={128} height={64} click={window.alert.bind(null, "jagshemash!")}>
-                <Image src="kazakhstan.gif" width={96} height={48} />
-            </Button>
-        </Window>
-    </g>
-);
+        this.raiseWindow = this.raiseWindow.bind(this);
+
+        this.state = {
+            windows: React.Children.map(this.props.children, x => React.cloneElement(x, {
+                id: uniqueIdentifier(),
+                raiseWindow: this.raiseWindow
+            }))
+        };
+    }
+
+    raiseWindow(id) {
+        let index = this.state.windows.findIndex(w => w.props.id == id);
+        
+        let windows = this.state.windows.slice(0, index)
+            .concat(this.state.windows.slice(index + 1))
+            .concat(this.state.windows[index]);
+
+        this.setState({ windows });
+    }
+    
+    render() {
+        return (
+            <g>
+                {this.state.windows}
+            </g>
+        );
+    }
+}
 
 export default Application;
