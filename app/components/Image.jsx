@@ -10,7 +10,7 @@ let Image = ({
     onMouseDown,
     onMouseLeave
 }) => (
-    <image href={src} x={x} y={y} width={width} height={height} clipPath={clipPath}
+    <image xlinkHref={src} x={x} y={y} width={width} height={height} clipPath={clipPath}
            onMouseUp={onMouseUp} onMouseDown={onMouseDown} onMouseLeave={onMouseLeave} />
 );
 
