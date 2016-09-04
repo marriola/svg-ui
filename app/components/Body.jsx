@@ -1,10 +1,13 @@
 import React from "react";
 
 let Body = ({id, x, y, width, height, className, children }) => {
-    children = React.Children.map(children, x => React.cloneElement(x, { id }));
-
     let cpId = "cp-" + id;
     let cpUri = "url(#" + cpId + ")";
+
+    children = React.Children.map(children, x => React.cloneElement(x, {
+        id,
+        clipPath: cpUri
+    }));
 
     return (
         <g className={className}>

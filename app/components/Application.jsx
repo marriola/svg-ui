@@ -17,26 +17,23 @@ export default class Application extends React.Component {
         this.iconizeWindow = this.iconizeWindow.bind(this);
 
         Actions.App.addWindows(
-            React.Children.map(this.props.children, x => React.cloneElement(x, {
-                id: uniqueIdentifier(),
-                iconized: false,
-                raiseWindow: this.raiseWindow,
-                closeWindow: this.closeWindow,
-                openWindow: this.openWindow,
-                iconizeWindow: this.iconizeWindow
-            }))
+            React.Children.map(this.props.children, x => this.addProps(x))
         );
     }
 
-    openWindow(window) {
-        Actions.App.addWindow(React.cloneElement(window, {
+    addProps(element) {
+        return React.cloneElement(element, {
             id: uniqueIdentifier(),
             iconized: false,
             raiseWindow: this.raiseWindow,
             closeWindow: this.closeWindow,
             openWindow: this.openWindow,
             iconizeWindow: this.iconizeWindow
-        }));
+        });
+    }
+
+    openWindow(window) {
+        Actions.App.addWindow(this.addProps(window));
     }
 
     closeWindow(id) {

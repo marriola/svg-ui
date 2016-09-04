@@ -3,17 +3,19 @@ import React from "react";
 import Titlebar from "components/Titlebar";
 import Body from "components/Body";
 
-const Drag = (function() {
+function Drag(name) {
     let dragDiffX, dragDiffY;
     let top, left;
     let dragging;
 
     function setPosition (x, y) {
+        console.log(name + ".setPosition");
         left = x;
         top = y;
     }
     
     function start (x, y) {
+        console.log(name + ".start");
         dragDiffX = left - x;
         dragDiffY = top - y;
         dragging = true;
@@ -21,11 +23,13 @@ const Drag = (function() {
     
     function move (elt, x, y) {
         if (dragging) {
+            console.log(name + ".move");
             elt.setAttribute("transform", `translate(${x + dragDiffX}, ${y + dragDiffY})`);
         }
     }
 
     function stop (x, y) {
+        console.log(name + ".stop");
         dragging = false;
         setPosition(x + dragDiffX, y + dragDiffY);
     }
@@ -36,7 +40,7 @@ const Drag = (function() {
         move,
         stop
     };
-})();
+};
 
 export default class Window extends React.Component {
     static propTypes = {
@@ -58,7 +62,8 @@ export default class Window extends React.Component {
             width: this.props.width,
             height: this.props.height,
             dragDiffX: 0,
-            dragDiffY: 0
+            dragDiffY: 0,
+            dragContext: Drag(this.props.id)
         };
 
         this.move = this.move.bind(this);
@@ -98,18 +103,18 @@ export default class Window extends React.Component {
 
     componentDidMount() {
         this.setPosition(this.state.x, this.state.y);
-        Drag.setPosition(this.state.x, this.state.y);
+        this.state.dragContext.setPosition(this.state.x, this.state.y);
 
         let group = window.document.getElementById("g-" + this.props.id);
         let titlebar = window.document.getElementById("tb-t" + this.props.id);
         let tbText = window.document.getElementById("tbt-t" + this.props.id);
 
-        titlebar.addEventListener("mousedown", e => Drag.start(e.pageX, e.pageY));        
-        tbText.addEventListener("mousedown", e => Drag.start(e.pageX, e.pageY));        
-        titlebar.addEventListener("mousemove", e => Drag.move(group, e.pageX, e.pageY));
-        tbText.addEventListener("mousemove", e => Drag.move(group, e.pageX, e.pageY));
-        titlebar.addEventListener("mouseup", e => Drag.stop(e.pageX, e.pageY));
-        tbText.addEventListener("mouseup", e => Drag.stop(e.pageX, e.pageY));
+        titlebar.addEventListener("mousedown", e => this.state.dragContext.start(e.pageX, e.pageY));
+        tbText.addEventListener("mousedown", e => this.state.dragContext.start(e.pageX, e.pageY));        
+        titlebar.addEventListener("mousemove", e => this.state.dragContext.move(group, e.pageX, e.pageY));
+        tbText.addEventListener("mousemove", e => this.state.dragContext.move(group, e.pageX, e.pageY));
+        titlebar.addEventListener("mouseup", e => this.state.dragContext.stop(e.pageX, e.pageY));
+        tbText.addEventListener("mouseup", e => this.state.dragContext.stop(e.pageX, e.pageY));
     }
 
     mouseDown(event) {
