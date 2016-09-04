@@ -20,14 +20,16 @@ export default class Button extends React.Component {
     }
 
     mouseUp() {
+        if (this.state.pushed) {
+            window.requestAnimationFrame(() => {
+                setTimeout(() => {
+                    this.props.click();
+                }, 0);
+            });
+        }
+
         this.setState({
             pushed: false
-        });
-
-        window.requestAnimationFrame(() => {
-            setTimeout(() => {
-                this.props.click();
-            }, 0);
         });
     }
     
