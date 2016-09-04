@@ -44,9 +44,9 @@ export default class Window extends React.Component {
         });
     }
     
-    move(x, y, moving = false) {
+    move(x, y) {
         this.setState({
-            moving,
+            moving: true,
             x: x + this.state.dragDiffX,
             y: y + this.state.dragDiffY
         });        
@@ -71,7 +71,7 @@ export default class Window extends React.Component {
 
     mouseMove(event) {
         if (this.state.drag) {
-            this.move(event.pageX, event.pageY, true);
+            this.move(event.pageX, event.pageY);
         }
     }
 
