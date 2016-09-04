@@ -26,15 +26,15 @@ svg .hidden * {
 
 
 svg .titlebar > rect {
-    fill: #002;
+    fill: #001;
 }
 
 svg .titlebar > text {
-    fill: #eee;
+    fill: #ddd;
 }
 
 svg rect.body {
-    fill: #445;
+    fill: #484850;
 }
 
 svg g.button > rect {
