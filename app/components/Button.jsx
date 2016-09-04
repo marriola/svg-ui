@@ -71,7 +71,7 @@ export default class Button extends React.Component {
                       clipPath={cpUri}
                       fontSize="10pt"
                       alignmentBaseline="middle" textAnchor="middle"
-                      onMouseUp={this.mouseUp} onMouseDown={this.mouseDown} onMouseLeave={this.mouseLeave}>
+                      onTouchEnd={this.mouseUp} onMouseUp={this.mouseUp} onTouchStart={this.mouseDown} onMouseDown={this.mouseDown} onMouseLeave={this.mouseLeave}>
                     {this.props.children}
                 </text>;
         }
@@ -83,7 +83,9 @@ export default class Button extends React.Component {
                 return React.cloneElement(e, {
                     clipPath: cpUri,
                     onMouseUp: this.mouseUp,
+                    onTouchEnd: this.mouseUp,
                     onMouseDown: this.mouseDown,
+                    onTouchStart: this.mouseDown,
                     onMouseLeave: this.mouseLeave
                 });
             });
@@ -103,7 +105,7 @@ export default class Button extends React.Component {
                 </defs>
                 
                 <rect x="0" y="0" width={width} height={height}
-                      onMouseUp={this.mouseUp} onMouseDown={this.mouseDown} onMouseLeave={this.mouseLeave} />
+                      onTouchEnd={this.mouseUp} onMouseUp={this.mouseUp} onTouchStart={this.mouseDown} onMouseDown={this.mouseDown} onMouseLeave={this.mouseLeave} />
                 
                 <line x1={0} y1={height} x2={0} y2={0} className={topLeft} />
                 <line x1={0} y1={0} x2={width} y2={0} className={topLeft} />

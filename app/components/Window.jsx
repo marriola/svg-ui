@@ -24,24 +24,42 @@ export default class Window extends React.Component {
             dragDiffY: 0
         };
 
+        this.move = this.move.bind(this);
+        this.startDrag = this.startDrag.bind(this);
         this.closeWindow = this.closeWindow.bind(this);
         this.mouseDown = this.mouseDown.bind(this);
-        this.touchStart = this.mouseDown;
+        this.touchStart = this.touchStart.bind(this);
         this.mouseUp = this.mouseUp.bind(this);
         this.touchEnd = this.mouseUp;
         this.mouseMove = this.mouseMove.bind(this);
-        this.touchMove = this.mouseMove;
+        this.touchMove = this.touchMove.bind(this);
+    }
+
+    startDrag(x, y) {
+        this.setState({
+            drag: true,
+            moving: false,
+            dragDiffX: this.state.x - x,
+            dragDiffY: this.state.y - y
+        });
+    }
+    
+    move(x, y, moving = false) {
+        this.setState({
+            moving,
+            x: x + this.state.dragDiffX,
+            y: y + this.state.dragDiffY
+        });        
     }
 
     mouseDown(event) {
         this.props.raiseWindow(this.props.id);
-        
-        this.setState({
-            drag: true,
-            moving: false,
-            dragDiffX: this.state.x - event.pageX,
-            dragDiffY: this.state.y - event.pageY
-        });
+        this.startDrag(event.pageX, event.pageY);
+    }
+
+    touchStart(event) {
+        this.props.raiseWindow(this.props.id);
+        this.startDrag(event.touches[0].pageX, event.touches[0].pageY);
     }
 
     mouseUp(event) {
@@ -53,11 +71,14 @@ export default class Window extends React.Component {
 
     mouseMove(event) {
         if (this.state.drag) {
-            this.setState({
-                moving: true,
-                x: event.pageX + this.state.dragDiffX,
-                y: event.pageY + this.state.dragDiffY
-            });
+            this.move(event.pageX, event.pageY, true);
+        }
+    }
+
+    touchMove(event) {
+        if (this.state.drag) {
+            let touch = event.changedTouches[0];
+            this.move(touch.pageX, touch.pageY);
         }
     }
 
@@ -81,7 +102,8 @@ export default class Window extends React.Component {
                 <Titlebar title={this.props.title} id={"t" + this.props.id} className={windowClass}
                           width={this.state.width} height={titlebarHeight}
                           closeWindow={this.closeWindow}
-                          touchStart={this.touchStart} mouseDown={this.mouseDown} touchEnd={this.touchEnd} mouseUp={this.mouseUp} touchMove={this.touchMove} mouseMove={this.mouseMove} />
+                          touchStart={this.touchStart} touchEnd={this.touchEnd} touchMove={this.touchMove}
+                          mouseDown={this.mouseDown} mouseUp={this.mouseUp} mouseMove={this.mouseMove} />
                 
                 <Body id={"b" + this.props.id}
                       className={windowClass}
