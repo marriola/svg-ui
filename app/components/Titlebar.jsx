@@ -7,7 +7,7 @@ let Titlebar = ({
     width, height,
     title, className,
     closeButton = false, iconizeButton = false,
-    closeWindow, iconizeWindow
+    closeWindow, iconizeWindow, raiseWindow
 }) => {
     let copyPathId = "cp-" + id;
     let copyPathUri = "url(#" + copyPathId + ")";
@@ -23,10 +23,12 @@ let Titlebar = ({
             <rect clipPath={copyPathUri} rx="7"
                   x="0" y="0"
                   width={width} height={height}
+                  onMouseDown={raiseWindow}
             />
             
             <text x={width / 2} y={height / 2}
-                  textAnchor="middle">
+                  textAnchor="middle"
+                  onMouseDown={raiseWindow}>
                 {title}
             </text>
 
