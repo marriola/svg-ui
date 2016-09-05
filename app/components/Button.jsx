@@ -68,9 +68,7 @@ export default class Button extends React.Component {
         if (typeof(this.props.children) === "string") {
             children =
                 <text x={width / 2} y={height / 2}
-                      clipPath={cpUri}
-                      alignmentBaseline="middle" textAnchor="middle"
-                      onTouchEnd={this.mouseUp} onMouseUp={this.mouseUp} onTouchStart={this.mouseDown} onMouseDown={this.mouseDown} onMouseLeave={this.mouseLeave}>
+                      clipPath={cpUri}>
                     {this.props.children}
                 </text>;
         }
@@ -79,19 +77,18 @@ export default class Button extends React.Component {
                 offsetX += (this.props.width - e.props.width - 2) / 2 + 1;
                 offsetY += (this.props.height - e.props.height - 2) / 2 + 1;
 
-                return React.cloneElement(e, {
-                    clipPath: cpUri,
-                    onMouseUp: this.mouseUp,
-                    onTouchEnd: this.mouseUp,
-                    onMouseDown: this.mouseDown,
-                    onTouchStart: this.mouseDown,
-                    onMouseLeave: this.mouseLeave
-                });
+                return React.cloneElement(e, { clipPath: cpUri });
             });
         }
 
         children = 
-            <g transform={`translate(${offsetX}, ${offsetY})`}>
+            <g transform={`translate(${offsetX}, ${offsetY})`}
+               onMouseUp={this.mouseUp}
+               onTouchEnd={this.mouseUp}
+               onMouseDown={this.mouseDown}
+               onTouchStart={this.mouseDown}
+               onMouseLeave={this.mouseLeave}
+            >
                 {children}
             </g>;
 

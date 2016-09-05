@@ -24,3 +24,8 @@ svg .hidden * {
     opacity: 0;
     transition: 0.1s ease-in-out opacity;
 }
+
+svg g.button > g > text {
+    alignment-baseline: middle;
+    text-anchor: middle;
+}

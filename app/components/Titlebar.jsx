@@ -42,7 +42,7 @@ let Titlebar = ({
             { iconizeButton ?
               <Button x={x + width - 16 - 8} y={8} parentX={0} parentY={0} width={16} height={16}
                       click={iconizeWindow}>
-                  _
+                  &#9643;
               </Button> : null }
         </g>
     );
