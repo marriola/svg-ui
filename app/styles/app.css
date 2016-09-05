@@ -26,6 +26,6 @@ svg .hidden * {
 }
 
 svg g.button > g > text {
-    alignment-baseline: middle;
+    dominant-baseline: middle;
     text-anchor: middle;
 }
