@@ -1,5 +1,6 @@
 import $ from "jquery";
 import React from "react";
+import Draggable from "react-draggable";
 import Titlebar from "components/Titlebar";
 import Body from "components/Body";
 
@@ -103,6 +104,10 @@ export default class Window extends React.Component {
         this.props.iconizeWindow(this.props.id, !this.props.iconized);
     }
 
+    /* touchStart={this.touchStart} touchEnd={this.touchEnd} touchMove={this.touchMove}
+     * mouseDown={this.mouseDown} mouseUp={this.mouseUp} mouseMove={this.mouseMove} />
+     */
+
     render() {
         let titlebarHeight = 32;
         let bodyY = titlebarHeight - 8;
@@ -112,24 +117,24 @@ export default class Window extends React.Component {
         let windowClass = this.state.moving ? "hidden" : null;
 
         return (
-            <g transform={`translate(${this.state.x}, ${this.state.y})`} ref="me">
-                <rect stroke="black" fill="transparent" className={outlineClass}
-                      rx="5" width={this.state.width} height={this.state.height} />
-                
-                <Titlebar title={this.props.title} id={"t" + this.props.id} className={windowClass}
-                          width={this.state.width} height={titlebarHeight}
-                          closeButton={this.props.closeButton} iconizeButton={this.props.iconizeButton}
-                          closeWindow={this.closeWindow} iconizeWindow={this.iconizeWindow}
-                          touchStart={this.touchStart} touchEnd={this.touchEnd} touchMove={this.touchMove}
-                          mouseDown={this.mouseDown} mouseUp={this.mouseUp} mouseMove={this.mouseMove} />
-                
-                <Body id={"b" + this.props.id}
-                      className={windowClass}
-                      x={0} y={bodyY}
-                      width={this.state.width} height={bodyHeight}>
-                    {this.props.children}
-                </Body>
-            </g>
+            <Draggable defaultPosition={{ x: this.props.x, y: this.props.x }}>
+                <g>
+                    <rect stroke="black" fill="transparent" className={outlineClass}
+                          rx="5" width={this.state.width} height={this.state.height} />
+                    
+                    <Titlebar title={this.props.title} id={"t" + this.props.id} className={windowClass}
+                              width={this.state.width} height={titlebarHeight}
+                              closeButton={this.props.closeButton} iconizeButton={this.props.iconizeButton}
+                              closeWindow={this.closeWindow} iconizeWindow={this.iconizeWindow} />
+                    
+                    <Body id={"b" + this.props.id}
+                          className={windowClass}
+                          x={0} y={bodyY}
+                          width={this.state.width} height={bodyHeight}>
+                        {this.props.children}
+                    </Body>
+                </g>
+            </Draggable>
         );
     }
 }
