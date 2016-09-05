@@ -15,7 +15,7 @@ export default class Window extends React.Component {
     };
 
     static defaultProps = {
-        icon: "bw.png"
+        icon: "default.png"
     };
 
     constructor(props) {
@@ -67,7 +67,8 @@ export default class Window extends React.Component {
                     <Body id={"b" + this.props.id}
                           className={windowClass}
                           x={0} y={bodyY}
-                          width={this.state.width} height={bodyHeight}>
+                          width={this.state.width} height={bodyHeight}
+                          raiseWindow={this.raiseWindow}>
                         {this.props.children}
                     </Body>
                 </g>

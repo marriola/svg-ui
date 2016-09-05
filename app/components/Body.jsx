@@ -1,7 +1,9 @@
 import React from "react";
 
-let Body = ({id, x, y, width, height, className, children }) => {
-    children = React.Children.map(children, x => React.cloneElement(x, { id }));
+let Body = ({id, x, y, width, height, className, raiseWindow, children }) => {
+    children = React.Children.map(children, x => React.cloneElement(x, {
+        id
+    }));
 
     let cpId = "cp-" + id;
     let cpUri = "url(#" + cpId + ")";
@@ -20,9 +22,10 @@ let Body = ({id, x, y, width, height, className, children }) => {
                   x="0" y={y}
                   width={width} height={height + 5}
                   className="body"
+                  onMouseDown={raiseWindow}
             />
 
-            <g transform={`translate(0, 35)`}>
+            <g transform={`translate(0, 35)`} onClick={raiseWindow}>
                 {children}
             </g>
         </g>
