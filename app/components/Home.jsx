@@ -32,7 +32,8 @@ export default class Home extends React.Component {
         window.openWindow(
             <Window x={this.state.x} y={this.state.y} width={148} height={156}
                     closeButton={true} iconizeButton={true}
-                    title={title} key={uniqueIdentifier()}>
+                    title={title} key={uniqueIdentifier()}
+                    icon={src}>
                 <Text x={5} fill="#ddd">
                     Hello
                 </Text>

@@ -14,6 +14,10 @@ export default class Window extends React.Component {
         title: React.PropTypes.string
     };
 
+    static defaultProps = {
+        icon: "bw.png"
+    };
+
     constructor(props) {
         super(props);
         this.state = {

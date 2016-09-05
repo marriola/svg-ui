@@ -56,7 +56,8 @@ export default class Application extends React.Component {
                         .filter(w => w.props.iconized)
                         .map(w => <IconizedWindow y={0} key={"iw" + w.props.id}
                                                   windowId={w.props.id} title={w.props.title}
-                                                  iconizeWindow={this.iconizeWindow} />);
+                                                  iconizeWindow={this.iconizeWindow}
+                                                  icon={w.props.icon} />);
 
         for (let i in icons) {
             icons[i] = React.cloneElement(icons[i], { x: i * 66 });
