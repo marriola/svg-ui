@@ -65,8 +65,8 @@ export default class Home extends React.Component {
                     </Button>
                 </Window>
 
-                <Window x={320} y={240} width={192} height={64}
-                        key={uniqueIdentifier()} title="nothing in here"
+                <Window x={320} y={240} width={192} height={192}
+                        key={uniqueIdentifier()} title="really really really really long title"
                         closeButton={true} iconizeButton={true}>
                 </Window>
             </Application>

@@ -27,6 +27,7 @@ let Titlebar = ({
             />
             
             <text x={width / 2} y={height / 2}
+                  clipPath={copyPathUri}
                   textAnchor="middle"
                   onMouseDown={raiseWindow}>
                 {title}
