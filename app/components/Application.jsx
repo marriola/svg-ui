@@ -63,12 +63,10 @@ export default class Application extends React.Component {
             icons[i] = React.cloneElement(icons[i], { x: i * 66 });
         }
         
-        let windows = this.props.app.windows.filter(w => !w.props.iconized);
-        
         return (
             <g>
                 {icons}
-                {windows}
+                {this.props.app.windows}
             </g>
         );
     }

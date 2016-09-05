@@ -24,6 +24,8 @@ export default class Window extends React.Component {
         super(props);
         this.state = {
             drag: false,
+            x: this.props.x,
+            y: this.props.y,
             iconized: this.props.iconized,
             width: this.props.width,
             height: this.props.height,
@@ -48,10 +50,12 @@ export default class Window extends React.Component {
         });
     }
 
-    drag() {
+    drag(mouse, drag) {
         if (!this.props.drag) {
             this.setState({
-                moving: true
+                moving: true,
+                x: drag.x,
+                y: drag.y
             });
         }
     }
@@ -71,9 +75,9 @@ export default class Window extends React.Component {
         let outlineClass = this.state.moving ? null : "hidden";
         let windowClass = this.state.moving ? "hidden" : null;
 
-        return (
-            <Draggable defaultPosition={{ x: this.props.x, y: this.props.x }} cancel=".body"
-                       onStart={this.startDrag} onDrag={this.drag} onStop={this.stopDrag}>
+        return ( this.props.iconized ? null :
+            <Draggable onStart={this.startDrag} onDrag={this.drag} onStop={this.stopDrag}
+                       position={{ x: this.state.x, y: this.state.y }}>
                 <g>
                     <rect stroke="black" fill="transparent" className={outlineClass}
                           rx="5" width={this.state.width} height={this.state.height} />
