@@ -1,0 +1,44 @@
+/* The application */
+
+svg {
+    background: url('bw.png');
+    border-radius: 5px;
+}
+
+/* Title bar background and border */
+
+svg .titlebar > rect {
+    fill: #001;
+    stroke-width: 2px;
+    stroke: #242428;
+}
+
+/* Title bar text */
+
+svg .titlebar > text {
+    fill: #ddd;
+}
+
+/* Window body and border */
+
+svg rect.body {
+    fill: #484850;
+    stroke-width: 2px;
+    stroke: #242428;
+}
+
+/* Button background color */
+
+svg g.button > rect {
+    fill: #000;
+}
+
+/* Button bevel colors */
+
+svg g.button > line.light {
+    stroke: #fff;
+}
+
+svg g.button > line.dark {
+    stroke: #777;
+}
