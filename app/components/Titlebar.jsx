@@ -10,7 +10,9 @@ let Titlebar = ({
     closeWindow, iconizeWindow, raiseWindow
 }) => {
     let copyPathId = "cp-" + id;
+    let textCpId = "tbt-" + copyPathId;
     let copyPathUri = "url(#" + copyPathId + ")";
+    let textCpUri = "url(#" + textCpId + ")";
     
     return (
         <g className={"titlebar " + className}>
@@ -18,6 +20,11 @@ let Titlebar = ({
                 <clipPath id={copyPathId}>
                     <rect x="0" y="0" width={width} height={height - 3} />
                 </clipPath>
+
+                <clipPath id={textCpId}>
+                    <rect x="32" y="0" width={width - 64} height={height - 3} />
+                </clipPath>
+        
             </defs>
 
             <rect clipPath={copyPathUri} rx="7"
@@ -27,7 +34,7 @@ let Titlebar = ({
             />
             
             <text x={width / 2} y={height / 2}
-                  clipPath={copyPathUri}
+                  clipPath={textCpUri}
                   dominantBaseline="middle" textAnchor="middle"
                   onMouseDown={raiseWindow}>
                 {title}
