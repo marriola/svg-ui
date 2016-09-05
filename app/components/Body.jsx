@@ -9,7 +9,7 @@ let Body = ({id, x, y, width, height, className, raiseWindow, children }) => {
     let cpUri = "url(#" + cpId + ")";
 
     return (
-        <g className={className}>
+        <g className={"body " + className}>
             <defs>
                 <clipPath id={"cp-" + id}>
                     <rect x={x} y={y + 5}

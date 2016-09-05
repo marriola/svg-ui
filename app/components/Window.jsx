@@ -1,9 +1,11 @@
 import $ from "jquery";
+import autobind from "autobind-decorator";
 import React from "react";
 import Draggable from "react-draggable";
 import Titlebar from "components/Titlebar";
 import Body from "components/Body";
 
+@autobind
 export default class Window extends React.Component {
     static propTypes = {
         order: React.PropTypes.number,
@@ -26,10 +28,6 @@ export default class Window extends React.Component {
             width: this.props.width,
             height: this.props.height,
         };
-
-        this.closeWindow = this.closeWindow.bind(this);
-        this.iconizeWindow = this.iconizeWindow.bind(this);
-        this.raiseWindow = this.raiseWindow.bind(this);
     }
 
     closeWindow() {
@@ -44,6 +42,27 @@ export default class Window extends React.Component {
         this.props.raiseWindow(this.props.id);
     }
 
+    startDrag() {
+        this.setState({
+            drag: true
+        });
+    }
+
+    drag() {
+        if (!this.props.drag) {
+            this.setState({
+                moving: true
+            });
+        }
+    }
+
+    stopDrag() {
+        this.setState({
+            drag: false,
+            moving: false
+        });
+    }
+
     render() {
         let titlebarHeight = 32;
         let bodyY = titlebarHeight - 8;
@@ -53,7 +72,8 @@ export default class Window extends React.Component {
         let windowClass = this.state.moving ? "hidden" : null;
 
         return (
-            <Draggable defaultPosition={{ x: this.props.x, y: this.props.x }}>
+            <Draggable defaultPosition={{ x: this.props.x, y: this.props.x }} cancel=".body"
+                       onStart={this.startDrag} onDrag={this.drag} onStop={this.stopDrag}>
                 <g>
                     <rect stroke="black" fill="transparent" className={outlineClass}
                           rx="5" width={this.state.width} height={this.state.height} />
