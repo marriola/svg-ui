@@ -24,8 +24,6 @@ export default class Window extends React.Component {
         super(props);
         this.state = {
             drag: false,
-            x: this.props.x,
-            y: this.props.y,
             iconized: this.props.iconized,
             width: this.props.width,
             height: this.props.height,
@@ -51,11 +49,9 @@ export default class Window extends React.Component {
     }
 
     drag(mouse, drag) {
-        if (!this.props.drag) {
+        if (!this.props.drag && !this.props.moving) {
             this.setState({
-                moving: true,
-                x: drag.x,
-                y: drag.y
+                moving: true
             });
         }
     }
@@ -75,10 +71,10 @@ export default class Window extends React.Component {
         let outlineClass = this.state.moving ? null : "hidden";
         let windowClass = this.state.moving ? "hidden" : null;
 
-        return ( this.props.iconized ? null :
+        return (
             <Draggable onStart={this.startDrag} onDrag={this.drag} onStop={this.stopDrag}
-                       position={{ x: this.state.x, y: this.state.y }}>
-                <g>
+                       defaultPosition={{ x: this.props.x, y: this.props.y }} cancel=".body">
+                { this.props.iconized ? <g></g> : <g>
                     <rect stroke="black" fill="transparent" className={outlineClass}
                           rx="5" width={this.state.width} height={this.state.height} />
                     
@@ -95,7 +91,7 @@ export default class Window extends React.Component {
                           raiseWindow={this.raiseWindow}>
                         {this.props.children}
                     </Body>
-                </g>
+                </g> }
             </Draggable>
         );
     }

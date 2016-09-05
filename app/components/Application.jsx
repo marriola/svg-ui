@@ -1,42 +1,34 @@
 import { connect } from "decorators";
 import { uniqueIdentifier } from "utils";
+import autobind from "autobind-decorator";
 import React from "react";
 import Actions from "action-creators";
 import IconizedWindow from "components/IconizedWindow";
 
 @connect("app")
+@autobind
 export default class Application extends React.Component {
     constructor(props) {
         super(props);
 
         window.openWindow = this.openWindow.bind(this);
 
-        this.raiseWindow = this.raiseWindow.bind(this);
-        this.closeWindow = this.closeWindow.bind(this);
-        this.openWindow = this.openWindow.bind(this);
-        this.iconizeWindow = this.iconizeWindow.bind(this);
-
-        Actions.App.addWindows(
-            React.Children.map(this.props.children, x => React.cloneElement(x, {
-                id: uniqueIdentifier(),
-                iconized: false,
-                raiseWindow: this.raiseWindow,
-                closeWindow: this.closeWindow,
-                openWindow: this.openWindow,
-                iconizeWindow: this.iconizeWindow
-            }))
-        );
+        Actions.App.addWindows(React.Children.map(this.props.children, this.attachProps));
     }
 
     openWindow(window) {
-        Actions.App.addWindow(React.cloneElement(window, {
+        Actions.App.addWindow(this.attachProps(window))
+    }
+
+    attachProps(window) {
+        return React.cloneElement(window, {
             id: uniqueIdentifier(),
             iconized: false,
             raiseWindow: this.raiseWindow,
             closeWindow: this.closeWindow,
             openWindow: this.openWindow,
             iconizeWindow: this.iconizeWindow
-        }));
+        });
     }
 
     closeWindow(id) {
