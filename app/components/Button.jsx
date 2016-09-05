@@ -67,9 +67,8 @@ export default class Button extends React.Component {
 
         if (typeof(this.props.children) === "string") {
             children =
-                <text x={width / 2} y={height / 2} fill="white"
+                <text x={width / 2} y={height / 2}
                       clipPath={cpUri}
-                      fontSize="10pt"
                       alignmentBaseline="middle" textAnchor="middle"
                       onTouchEnd={this.mouseUp} onMouseUp={this.mouseUp} onTouchStart={this.mouseDown} onMouseDown={this.mouseDown} onMouseLeave={this.mouseLeave}>
                     {this.props.children}

@@ -30,15 +30,22 @@ svg rect.body {
 /* Button background color */
 
 svg g.button > rect {
-    fill: #000;
+    fill: #111;
+}
+
+/* Button text color */
+
+svg g.button > g > text {
+    fill: #ddd;
+    font-size: 10pt;
 }
 
 /* Button bevel colors */
 
 svg g.button > line.light {
-    stroke: #fff;
+    stroke: #ddd;
 }
 
 svg g.button > line.dark {
-    stroke: #777;
+    stroke: #555;
 }
