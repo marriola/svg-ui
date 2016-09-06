@@ -1,4 +1,6 @@
 import React from "react";
+import { uniqueIdentifier } from "utils";
+import Control from "components/Control";
 
 const halignToTextAnchor = {
     left: "start",
@@ -6,18 +8,24 @@ const halignToTextAnchor = {
     right: "end"
 };
 
-const Text = ({
-    x = 0,
-    y = 0,
-    halign = "left",
-    children: text,
-    ...props
-}) => (
-    <text x={x} y={y + 10}
-          textAnchor={halignToTextAnchor[halign]}
-          {...props}>
-        {text}
-    </text>
-);
+export default class Text extends Control {
+    render() {
+        let {
+            x = 0, y = 0,
+            width, height,
+            halign = "left",
+            children: text
+        } = this.props;
 
-export default Text;
+        let out = (
+            <text {...this.props}
+                  x={0} y={0}
+                  dominantBaseline="hanging"
+                  textAnchor={halignToTextAnchor[halign]}>
+                {text}
+            </text>
+        );
+
+        return super.render(out);
+    }
+}

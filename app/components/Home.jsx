@@ -71,6 +71,7 @@ export default class Home extends React.Component {
                 <Window x={320} y={240} width={192} height={192}
                         key={uniqueIdentifier()} title="really really really really long title"
                         closeButton={true} iconizeButton={true}>
+                    <Text x={5} y={25} width={128} height={20}>Really really really really long</Text>
                     <Menu>
                         <MenuItem id="file" title="File">
                             <MenuItem id="open" title="Open" />
