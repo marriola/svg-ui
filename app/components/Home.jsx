@@ -6,6 +6,8 @@ import Window from "components/Window";
 import Button from "components/Button";
 import Image from "components/Image";
 import Text from "components/Text";
+import Menu from "components/Menu";
+import MenuItem from "components/MenuItem";
 import Actions from "action-creators";
 
 const planets = ["mercury", "venus", "earth", "mars", "jupiter", "saturn", "uranus", "neptune", "pluto"];
@@ -55,12 +57,12 @@ export default class Home extends React.Component {
                 <Window x={10} y={10} width={192} height={128}
                         key={uniqueIdentifier()} title="hello"
                         iconizeButton={true}>
-                    <Button x={5} y={0} width={45} height={20}
+                    <Button x={5} y={5} width={45} height={20}
                             click={this.openWindow.bind(this)}>
                         Open
                     </Button>
 
-                    <Button x={60} y={0} width={112} height={64}
+                    <Button x={60} y={5} width={112} height={64}
                             click={window.alert.bind(null, "jagshemash!")}>
                         <Image src="kazakhstan.gif" width={96} height={48} />
                     </Button>
@@ -69,6 +71,19 @@ export default class Home extends React.Component {
                 <Window x={320} y={240} width={192} height={192}
                         key={uniqueIdentifier()} title="really really really really long title"
                         closeButton={true} iconizeButton={true}>
+                    <Menu>
+                        <MenuItem id="file" title="File">
+                            <MenuItem id="open" title="Open" />
+                            <MenuItem id="save" title="Save" />
+                            <MenuItem id="recent" title="Recent...">
+                                <MenuItem id="file1" title="File 1" />
+                                <MenuItem id="file2" title="File 2" />
+                            </MenuItem>
+                        </MenuItem>
+                        <MenuItem id="help" title="Help">
+                            <MenuItem id="ursol" title="Good luck" />
+                        </MenuItem>
+                    </Menu>
                 </Window>
             </Application>
         );

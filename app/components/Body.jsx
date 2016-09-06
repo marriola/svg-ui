@@ -6,13 +6,20 @@ let Body = ({id, x, y, width, height, className, raiseWindow, children }) => {
     }));
 
     let cpId = "cp-" + id;
+    let bodyCpId = "b" + cpId;
     let cpUri = "url(#" + cpId + ")";
+    let bodyCpUri = "url(#" + bodyCpId + ")";
 
     return (
         <g className={"body " + className}>
             <defs>
-                <clipPath id={"cp-" + id}>
+                <clipPath id={cpId}>
                     <rect x={x} y={y + 5}
+                          width={width} height={height}
+                    />                    
+                </clipPath>
+                <clipPath id={bodyCpId}>
+                    <rect x={x} y={y - 25}
                           width={width} height={height}
                     />
                 </clipPath>
@@ -25,7 +32,9 @@ let Body = ({id, x, y, width, height, className, raiseWindow, children }) => {
                   onMouseDown={raiseWindow}
             />
 
-            <g transform={`translate(0, 35)`} onClick={raiseWindow}>
+            <g transform={`translate(0, 30)`}
+               clipPath={bodyCpUri}
+               onClick={raiseWindow}>
                 {children}
             </g>
         </g>

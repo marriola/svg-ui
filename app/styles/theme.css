@@ -27,6 +27,12 @@ svg rect.body {
     stroke: #242428;
 }
 
+/* Dragging window outline */
+
+svg rect.outline {
+    stroke: black;
+}
+
 /* Button background color */
 
 svg g.button > rect {
@@ -48,4 +54,22 @@ svg g.button > line.light {
 
 svg g.button > line.dark {
     stroke: #555;
+}
+
+/* Menu bar */
+
+svg g.menubar > rect {
+    stroke: black;
+    fill: #585860;
+}
+
+/* Menu item */
+
+svg g.menuitem.active > rect {
+    fill: black;
+}
+
+svg g.menuitem.active > text {
+    stroke: transparent;
+    fill: #585860;
 }
