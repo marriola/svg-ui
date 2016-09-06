@@ -71,7 +71,7 @@ export default class Window extends React.Component {
         let outlineClass = this.state.moving ? null : "hidden";
         let windowClass = this.state.moving ? "hidden" : null;
 
-        let children = React.Children.map(this.props.children, x => React.cloneElement(x, { window: this }));
+        let children = React.Children.map(this.props.children, x => typeof x.type == "function" ? React.cloneElement(x, { window: this }) : x);
 
         return (
             <Draggable onStart={this.startDrag} onDrag={this.drag} onStop={this.stopDrag}
