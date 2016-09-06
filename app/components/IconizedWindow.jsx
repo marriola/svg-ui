@@ -2,6 +2,7 @@ import React from "react";
 
 export default class IconizedWindow extends React.Component {
     static WIDTH = 58;
+    static SPACER = 8;
 
     constructor(props) {
         super(props);

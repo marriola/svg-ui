@@ -52,7 +52,7 @@ export default class Application extends React.Component {
                                                   icon={w.props.icon} />);
 
         for (let i in icons) {
-            icons[i] = React.cloneElement(icons[i], { x: i * 66 });
+            icons[i] = React.cloneElement(icons[i], { x: i * (IconizedWindow.WIDTH + IconizedWindow.SPACER) });
         }
         
         return (

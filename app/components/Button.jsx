@@ -1,6 +1,8 @@
 import React from "react";
+import autobind from "autobind-decorator";
 import { uniqueIdentifier } from "utils";
 
+@autobind
 export default class Button extends React.Component {
     static propTypes = {
         x: React.PropTypes.number,
@@ -18,10 +20,6 @@ export default class Button extends React.Component {
             id: "btn" + uniqueIdentifier(),
             pushed: false
         };
-
-        this.mouseDown = this.mouseDown.bind(this);
-        this.mouseUp = this.mouseUp.bind(this);
-        this.mouseLeave = this.mouseLeave.bind(this);
     }
 
     mouseDown() {
@@ -31,14 +29,6 @@ export default class Button extends React.Component {
     }
 
     mouseUp() {
-        if (this.state.pushed) {
-            window.requestAnimationFrame(() => {
-                setTimeout(() => {
-                    this.props.click();
-                }, 0);
-            });
-        }
-
         this.setState({
             pushed: false
         });
@@ -47,6 +37,16 @@ export default class Button extends React.Component {
     mouseLeave() {
         this.setState({
             pushed: false
+        });
+    }
+
+    click() {
+        // Wait until next frame to trigger click so that we don't
+        // steal focus if the event handler opens a window
+        window.requestAnimationFrame(() => {
+            setTimeout(() => {
+                this.props.click();
+            }, 0);
         });
     }
 
@@ -87,6 +87,7 @@ export default class Button extends React.Component {
                onTouchEnd={this.mouseUp}
                onMouseDown={this.mouseDown}
                onTouchStart={this.mouseDown}
+               onClick={this.click}
                onMouseLeave={this.mouseLeave}
             >
                 {children}
@@ -101,7 +102,7 @@ export default class Button extends React.Component {
                 </defs>
                 
                 <rect x="0" y="0" width={width} height={height}
-                      onTouchEnd={this.mouseUp} onMouseUp={this.mouseUp} onTouchStart={this.mouseDown} onMouseDown={this.mouseDown} onMouseLeave={this.mouseLeave} />
+                      onTouchEnd={this.mouseUp} onMouseUp={this.mouseUp} onTouchStart={this.mouseDown} onMouseDown={this.mouseDown} onMouseLeave={this.mouseLeave} onClick={this.click} />
                 
                 <line x1={0} y1={height} x2={0} y2={0} className={topLeft} />
                 <line x1={0} y1={0} x2={width} y2={0} className={topLeft} />
