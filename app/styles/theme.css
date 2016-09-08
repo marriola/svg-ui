@@ -5,12 +5,13 @@ svg {
     border-radius: 5px;
 }
 
-/* Title bar background and border */
+/* Title bar */
 
 svg .titlebar > rect {
     fill: #001;
     stroke-width: 2px;
     stroke: #242428;
+    /* rx: 7px; */
 }
 
 /* Title bar text */
@@ -19,18 +20,24 @@ svg .titlebar > text {
     fill: #ddd;
 }
 
-/* Window body and border */
+/* Window border */
 
-svg rect.body {
-    fill: #484850;
-    stroke-width: 2px;
-    stroke: #242428;
+svg .borderClip {
+    rx: 7px;
 }
 
 /* Dragging window outline */
 
 svg rect.outline {
     stroke: black;
+}
+
+/* Window body */
+
+svg rect.body {
+    fill: #484850;
+    stroke-width: 2px;
+    stroke: #242428;
 }
 
 /* Button background color */
@@ -49,11 +56,11 @@ svg g.button > g > text {
 /* Button bevel colors */
 
 svg g.button > line.light {
-    stroke: #ddd;
+    stroke: #889;
 }
 
 svg g.button > line.dark {
-    stroke: #555;
+    stroke: #112;
 }
 
 /* Menu bar */

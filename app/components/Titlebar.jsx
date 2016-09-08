@@ -27,7 +27,7 @@ let Titlebar = ({
         
             </defs>
 
-            <rect clipPath={copyPathUri} rx="7"
+            <rect clipPath={copyPathUri}
                   x="0" y="0"
                   width={width} height={height}
                   onMouseDown={raiseWindow}

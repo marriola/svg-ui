@@ -17,7 +17,9 @@ export default class Window extends React.Component {
     };
 
     static defaultProps = {
-        icon: "default.png"
+        icon: "default.png",
+        closeButton: true,
+        iconizeButton: true
     };
 
     constructor(props) {
@@ -71,28 +73,39 @@ export default class Window extends React.Component {
         let outlineClass = this.state.moving ? null : "hidden";
         let windowClass = this.state.moving ? "hidden" : null;
 
-        let children = React.Children.map(this.props.children, x => typeof x.type == "function" ? React.cloneElement(x, { window: this }) : x);
+        let children = React.Children.map(this.props.children, x => typeof x.type == "function" ? React.cloneElement(x, {
+            window: this,
+            parent: this
+        }) : x);
 
         return (
             <Draggable onStart={this.startDrag} onDrag={this.drag} onStop={this.stopDrag}
                        defaultPosition={{ x: this.props.x, y: this.props.y }} cancel=".body">
-                { this.props.iconized ? <g></g> : <g>
-                    <rect fill="transparent" className={"outline " + outlineClass}
-                          rx="5" width={this.state.width} height={this.state.height} />
-                    
-                    <Titlebar title={this.props.title} id={"t" + this.props.id} className={windowClass}
-                              width={this.state.width} height={titlebarHeight}
-                              closeButton={this.props.closeButton} iconizeButton={this.props.iconizeButton}
-                              closeWindow={this.closeWindow} iconizeWindow={this.iconizeWindow} raiseWindow={this.raiseWindow}
-                    />
-                    
-                    <Body id={"b" + this.props.id}
-                          className={windowClass}
-                          x={0} y={bodyY}
-                          width={this.state.width} height={bodyHeight}
-                          raiseWindow={this.raiseWindow}>
-                        {children}
-                    </Body>
+                { this.props.iconized ? <g></g> :
+                <g>
+                    <defs>
+                        <clipPath id={"cpb" + this.props.id}>
+                            <rect className="borderClip" x="0" y="0" width={this.state.width} height={this.state.height} />
+                        </clipPath>
+                    </defs>
+                    <g clipPath={"url(#cpb" + this.props.id + ")"}>
+                        <rect fill="transparent" className={"outline " + outlineClass}
+                              rx="5" width={this.state.width} height={this.state.height} />
+                        
+                        <Titlebar title={this.props.title} id={"t" + this.props.id} className={windowClass}
+                                  width={this.state.width} height={titlebarHeight}
+                                  closeButton={this.props.closeButton} iconizeButton={this.props.iconizeButton}
+                                  closeWindow={this.closeWindow} iconizeWindow={this.iconizeWindow} raiseWindow={this.raiseWindow}
+                        />
+                        
+                        <Body id={"b" + this.props.id}
+                              className={windowClass}
+                              x={0} y={bodyY}
+                              width={this.state.width} height={bodyHeight}
+                              raiseWindow={this.raiseWindow}>
+                            {children}
+                        </Body>
+                    </g>
                 </g> }
             </Draggable>
         );
