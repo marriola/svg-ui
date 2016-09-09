@@ -51,8 +51,8 @@ export default class Button extends React.Component {
     }
 
     render() {
-        let x = this.props.x; // + this.props.parentX;
-        let y = this.props.y; // + this.props.parentY;
+        let x = this.props.x;
+        let y = this.props.y;
         let { width, height } = this.props;
 
         let topLeft = this.state.pushed ? "dark" : "light";

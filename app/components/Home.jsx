@@ -37,11 +37,11 @@ export default class Home extends React.Component {
                     closeButton={true} iconizeButton={true}
                     title={title} key={uniqueIdentifier()}
                     icon={src}>
-                <Text x={5} fill="#ddd">
+                <Text x="5" y="5" width="148" height="20" fill="#ddd">
                     Hello
                 </Text>
                 
-                <Image src={src} x={5} y={16} width={width} height={height} />
+                <Image src={src} x={5} y={30} width={width} height={height} />
             </Window>
         );
 

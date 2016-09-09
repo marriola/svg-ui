@@ -17,7 +17,6 @@ const valignToBaseline = {
 export default class Text extends Control {
     render() {
         let {
-            x = 0, y = 0,
             width, height,
             halign = "left",
             valign = "top",
@@ -28,6 +27,8 @@ export default class Text extends Control {
         delete props.window;
         delete props.parent
 
+        let x = 0;
+        let y = 0;
         let anchor = halignToTextAnchor[halign];
         let baseline = valignToBaseline[valign];
         if (baseline == "middle") {
