@@ -66,7 +66,7 @@ export default class IconizedWindow extends React.Component {
                     </clipPath>
                 </defs>
                 
-                <image href={this.props.icon} x={5} y={5} width="48" height="48"
+                <image xlinkHref={this.props.icon} x={5} y={5} width="48" height="48"
                        onClick={this.restore} onTouchEnd={this.restore} />
 
                 {textBground}
