@@ -92,10 +92,10 @@ export default class Home extends React.Component {
                         key={uniqueIdentifier()} title="Layout test"
                         closeButton={false}>
                     <VerticalLayout width={192} height={192} size={4}>
-                        <Text>One</Text>
+                        <Text valign="middle" halign="middle">One</Text>
                         <Button>Two</Button>
-                        <Text>Three</Text>
-                        <Button>Four</Button>
+                        <Text valign="middle">Three</Text>
+                        <Text halign="right">Four</Text>
                     </VerticalLayout>
                 </Window>
             </Application>
