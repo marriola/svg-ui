@@ -8,6 +8,7 @@ import Image from "components/Image";
 import Text from "components/Text";
 import Menu from "components/Menu";
 import MenuItem from "components/MenuItem";
+import VerticalLayout from "components/VerticalLayout";
 import Actions from "action-creators";
 
 const planets = ["mercury", "venus", "earth", "mars", "jupiter", "saturn", "uranus", "neptune", "pluto"];
@@ -73,7 +74,7 @@ export default class Home extends React.Component {
                         closeButton={true} iconizeButton={true}>
                     <Text x={5} y={25} width={128} height={20}>Really really really really long</Text>
                     <Menu>
-                        <MenuItem id="file" title="File">
+                        <MenuItem key={uniqueIdentifier()} id="file" title="File">
                             <MenuItem id="open" title="Open" />
                             <MenuItem id="save" title="Save" />
                             <MenuItem id="recent" title="Recent...">
@@ -81,10 +82,21 @@ export default class Home extends React.Component {
                                 <MenuItem id="file2" title="File 2" />
                             </MenuItem>
                         </MenuItem>
-                        <MenuItem id="help" title="Help">
+                        <MenuItem key={uniqueIdentifier()} id="help" title="Help">
                             <MenuItem id="ursol" title="Good luck" />
                         </MenuItem>
                     </Menu>
+                </Window>
+
+                <Window x={160} y={240} width={192} height={192}
+                        key={uniqueIdentifier()} title="Layout test"
+                        closeButton={false}>
+                    <VerticalLayout width={192} height={192} size={4}>
+                        <Text>One</Text>
+                        <Button>Two</Button>
+                        <Text>Three</Text>
+                        <Button>Four</Button>
+                    </VerticalLayout>
                 </Window>
             </Application>
         );

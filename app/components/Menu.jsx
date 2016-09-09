@@ -23,8 +23,10 @@ export default class Menu extends React.Component {
             [id]: rect
         };
 
+        console.log("resolve:", this.itemSizes);
+
         let itemPositions = this.calculatePositions(this.itemSizes);
-        
+
         this.setState({ itemSizes: this.itemSizes, itemPositions });
     }
 
@@ -41,6 +43,7 @@ export default class Menu extends React.Component {
 
         let sum = Menu.ITEM_SPACE;
         for (let w of widths) {
+            console.log("calc x:", sum);
             positions.push(sum);
             sum += w + Menu.ITEM_SPACE;
         }
@@ -71,7 +74,9 @@ export default class Menu extends React.Component {
         let order = -1;
         let children = React.Children.map(this.props.children, e => {
             order++;
+            console.log("render x:", this.state.itemPositions[order]);
             return React.cloneElement(e, {
+                window: this.props.window,
                 rect: this.state.itemSizes[e.props.id],
                 resolve: this.resolveSize.bind(this, e.props.id),
                 x: this.state.itemPositions[order],

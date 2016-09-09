@@ -69,6 +69,7 @@ export default class Window extends React.Component {
         let titlebarHeight = 32;
         let bodyY = titlebarHeight - 8;
         let bodyHeight = this.state.height - titlebarHeight;
+        let totalHeight = this.state.height + titlebarHeight;
 
         let outlineClass = this.state.moving ? null : "hidden";
         let windowClass = this.state.moving ? "hidden" : null;
@@ -85,12 +86,13 @@ export default class Window extends React.Component {
                 <g>
                     <defs>
                         <clipPath id={"cpb" + this.props.id}>
-                            <rect className="borderClip" x="0" y="0" width={this.state.width} height={this.state.height} />
+                            <rect className="borderClip" x="0" y="0" width={this.state.width} height={totalHeight} />
                         </clipPath>
                     </defs>
+                    
                     <g clipPath={"url(#cpb" + this.props.id + ")"}>
-                        <rect fill="transparent" className={"outline " + outlineClass}
-                              rx="5" width={this.state.width} height={this.state.height} />
+                        <rect fill="transparent" className={"borderClip outline " + outlineClass}
+                              width={this.state.width} height={totalHeight} />
                         
                         <Titlebar title={this.props.title} id={"t" + this.props.id} className={windowClass}
                                   width={this.state.width} height={titlebarHeight}
@@ -101,7 +103,7 @@ export default class Window extends React.Component {
                         <Body id={"b" + this.props.id}
                               className={windowClass}
                               x={0} y={bodyY}
-                              width={this.state.width} height={bodyHeight}
+                              width={this.state.width} height={this.state.height}
                               raiseWindow={this.raiseWindow}>
                             {children}
                         </Body>

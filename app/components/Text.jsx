@@ -17,8 +17,12 @@ export default class Text extends Control {
             children: text
         } = this.props;
 
+        let props = Object.assign({}, this.props);
+        delete props.window;
+        delete props.parent
+
         let out = (
-            <text {...this.props}
+            <text {...props}
                   x={0} y={0}
                   dominantBaseline="hanging"
                   textAnchor={halignToTextAnchor[halign]}>
