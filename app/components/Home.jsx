@@ -57,7 +57,7 @@ export default class Home extends React.Component {
             <Application store={this.props.store}>
                 <Window x={10} y={10} width={192} height={128}
                         key={"winHello"} title="hello"
-                        iconizeButton={true}>
+                        closeButton={false}>
                     <Button x={5} y={5} width={45} height={20}
                             click={this.openWindow.bind(this)}>
                         Open

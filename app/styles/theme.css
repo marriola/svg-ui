@@ -16,7 +16,7 @@ svg .titlebar > rect {
 
 /* Title bar text */
 
-svg .titlebar > text {
+svg text.titlebar {
     fill: #ddd;
 }
 

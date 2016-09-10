@@ -1,5 +1,6 @@
 import React from "react";
 import Button from "components/Button";
+import Text from "components/Text";
 
 let Titlebar = ({
     id,
@@ -10,9 +11,7 @@ let Titlebar = ({
     closeWindow, iconizeWindow, raiseWindow
 }) => {
     let copyPathId = "cp-" + id;
-    let textCpId = "tbt-" + copyPathId;
     let copyPathUri = "url(#" + copyPathId + ")";
-    let textCpUri = "url(#" + textCpId + ")";
     
     return (
         <g className={"titlebar " + className}>
@@ -20,11 +19,6 @@ let Titlebar = ({
                 <clipPath id={copyPathId}>
                     <rect x="0" y="0" width={width} height={height - 3} />
                 </clipPath>
-
-                <clipPath id={textCpId}>
-                    <rect x="32" y="0" width={width - 64} height={height - 3} />
-                </clipPath>
-        
             </defs>
 
             <rect clipPath={copyPathUri}
@@ -32,13 +26,14 @@ let Titlebar = ({
                   width={width} height={height}
                   onMouseDown={raiseWindow}
             />
-            
-            <text x={width / 2} y={height / 2}
-                  clipPath={textCpUri}
-                  dominantBaseline="middle" textAnchor="middle"
+
+            <Text x={32} y={0}
+                  className="titlebar"
+                  width={width - 64} height={height}
+                  halign="middle" valign="middle"
                   onMouseDown={raiseWindow}>
                 {title}
-            </text>
+            </Text>
 
             { closeButton ?
               <Button x={8} y={8} parentX={0} parentY={0} width={16} height={16}

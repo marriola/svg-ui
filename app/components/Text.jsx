@@ -48,6 +48,7 @@ export default class Text extends Control {
         let out = (
             <text {...props}
                   x={x} y={y}
+                  className={"label " + (this.props.className || "")}
                   dominantBaseline={baseline}
                   textAnchor={anchor}>
                 {text}

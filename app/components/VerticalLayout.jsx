@@ -14,42 +14,38 @@ export default class VerticalLayout extends React.Component {
     }
 
     componentWillMount() {
-        let { clipPaths, clipPathIds, children } = this.state;
+        let panelHeight = this.props.height / this.props.size;
+        let key = "vl" + uniqueIdentifier() + "-";
+        let clipPaths = [];
         
-        if (!children) {
-            let panelHeight = this.props.height / this.props.size;
-            let key = "vl" + uniqueIdentifier() + "-";
-            clipPaths = [];
-            
-            for (let i = 0; i < this.props.size; i++) {
-                clipPaths.push(
-                    <clipPath id={key+i}>
-                        <rect x={0} y={i * panelHeight} width={this.props.width} height={panelHeight} />
-                    </clipPath>
-                );
-            }
-            
-            let index = -1;
-            let that = this;
-            let children = React.Children.map(this.props.children, e => {
-               ++index;
-                let y = index * panelHeight;
-                
-                return (
-                    <g transform={`translate(0, ${y})`}>
-                        { React.cloneElement(e, {
-                              "clip-path": "url(#" + key + index + ")",
-                              x: 0, y: 0,
-                              width: this.props.width,
-                              height: panelHeight,
-                              parent: that
-                          }) }
-                    </g>
-                );
-            });
-
-            this.setState({ clipPaths, clipPathIds, children });
+        for (let i = 0; i < this.props.size; i++) {
+            clipPaths.push(
+                <clipPath id={key+i}>
+                    <rect x={0} y={i * panelHeight} width={this.props.width} height={panelHeight} />
+                </clipPath>
+            );
         }
+        
+        let index = -1;
+        let that = this;
+        let children = React.Children.map(this.props.children, e => {
+              ++index;
+            let y = index * panelHeight;
+            
+            return (
+                <g transform={`translate(0, ${y})`}>
+                    { React.cloneElement(e, {
+                          "clip-path": "url(#" + key + index + ")",
+                          x: 0, y: 0,
+                          width: this.props.width,
+                          height: panelHeight,
+                          parent: that
+                      }) }
+                </g>
+            );
+        });
+
+        this.setState({ clipPaths, children });
     }
     
     render() {

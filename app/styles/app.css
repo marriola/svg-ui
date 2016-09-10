@@ -3,7 +3,7 @@ svg {
     height: 100vh;
 }
 
-svg text {
+svg text.label {
     cursor: default;
     -webkit-user-select: none;
        -moz-user-select: none;
@@ -21,7 +21,7 @@ svg rect, svg path {
 
 svg .hidden,
 svg .hidden * {
-    opacity: 0;
+    opacity: 0.75;
     transition: 0.1s ease-in-out opacity;
 }
 
