@@ -32,22 +32,16 @@ export default class Home extends React.Component {
         let width = index == 5 ? 128 : 96;
         let height = index == 5 ? 89 : 96;
 
-        /* <Text x="5" y="5" width="148" height="20" fill="#ddd">
-            Hello
-            </Text>
-            
-            <Image src={src} x={5} y={30} width={width} height={height} />
-          */
-        window.openWindow(
-            <Window x={this.state.x} y={this.state.y} width={148} height={156}
+        window.SvgUi.openWindow(
+            <Window x={this.state.x} y={this.state.y} width={192} height={192}
                     closeButton={true} iconizeButton={true}
                     title={title} key={uniqueIdentifier()}
                     icon={src}>
-                <VerticalLayout x="5" y="5" width="143" height="145">
-                    <Text halign="middle" valign="middle" fill="white">
+                <VerticalLayout x="5" y="5" width="182" height="182">
+                    <Text halign="middle" valign="middle">
                         Hello from {title}
                     </Text>
-                    <Image src={src} sw={width} sh={height} />
+                    <Image src={src} sw={width} sh={height} fit={true} />
                 </VerticalLayout>
             </Window>
         );
@@ -64,7 +58,7 @@ export default class Home extends React.Component {
             <Application store={this.props.store}>
                 <Window x={10} y={10} width={192} height={128}
                         key={"winHello"} title="hello"
-                        closeButton={false}>
+                        closeButton={false} iconizeButton={false}>
                     <Button x={5} y={5} width={45} height={20}
                             click={this.openWindow.bind(this)}>
                         Open

@@ -1,6 +1,7 @@
 import React from "react";
 import autobind from "autobind-decorator";
 import { uniqueIdentifier } from "utils";
+import Text from "components/Text";
 
 @autobind
 export default class Button extends React.Component {
@@ -55,8 +56,8 @@ export default class Button extends React.Component {
         let y = this.props.y;
         let { width, height } = this.props;
 
-        let topLeft = this.state.pushed ? "dark" : "light";
-        let bottomRight = this.state.pushed ? "light" : "dark";
+        let topLeft = this.state.pushed || this.props.pushed  ? "dark" : "light";
+        let bottomRight = this.state.pushed || this.props.pushed  ? "light" : "dark";
 
         let cpId = "cp-" + this.state.id;
         let cpUri = "url(#" + cpId + ")";
@@ -67,10 +68,15 @@ export default class Button extends React.Component {
 
         if (typeof(this.props.children) === "string") {
             children =
-                <text x={width / 2} y={height / 2}
-                      clipPath={cpUri}>
+                <Text width={width} height={height} halign="middle" valign="middle">
                     {this.props.children}
-                </text>;
+                </Text>;
+            
+            /* children =
+             *     <text x={width / 2} y={height / 2}
+             *           clipPath={cpUri}>
+             *         {this.props.children}
+             *     </text>;*/
         }
         else {
             children = React.Children.map(this.props.children, e => {

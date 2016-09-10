@@ -26,7 +26,6 @@ export default class Window extends React.Component {
         super(props);
         this.state = {
             drag: false,
-            iconized: this.props.iconized,
             width: this.props.width,
             height: this.props.height,
         };
@@ -42,6 +41,10 @@ export default class Window extends React.Component {
 
     raiseWindow() {
         this.props.raiseWindow(this.props.id);
+    }
+
+    pinWindow() {
+        this.props.pinWindow(this.props.id, !this.props.pinned);
     }
 
     startDrag() {
@@ -97,8 +100,9 @@ export default class Window extends React.Component {
                         
                         <Titlebar title={this.props.title} id={"t" + this.props.id} className={windowClass}
                                   width={this.state.width} height={titlebarHeight}
+                                  pinned={this.props.pinned}
                                   closeButton={this.props.closeButton} iconizeButton={this.props.iconizeButton}
-                                  closeWindow={this.closeWindow} iconizeWindow={this.iconizeWindow} raiseWindow={this.raiseWindow}
+                                  closeWindow={this.closeWindow} iconizeWindow={this.iconizeWindow} raiseWindow={this.raiseWindow} pinWindow={this.pinWindow}
                         />
                         
                         <Body id={"b" + this.props.id}

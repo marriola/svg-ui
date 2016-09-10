@@ -23,6 +23,14 @@ export default new ActionCreator({
         };
     },
 
+    pin: function (id, state) {
+        return {
+            type: app.action("pin"),
+            state,
+            id
+        };
+    },
+
     close: function (id) {
         return {
             type: app.action("close"),

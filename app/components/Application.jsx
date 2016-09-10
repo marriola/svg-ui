@@ -11,7 +11,9 @@ export default class Application extends React.Component {
     constructor(props) {
         super(props);
 
-        window.openWindow = this.openWindow.bind(this);
+        window.SvgUi = {
+            openWindow: this.openWindow
+        };
 
         Actions.App.addWindows(React.Children.map(this.props.children, this.attachProps));
     }
@@ -24,10 +26,12 @@ export default class Application extends React.Component {
         return React.cloneElement(window, {
             id: uniqueIdentifier(),
             iconized: false,
+            pinned: false,
             raiseWindow: this.raiseWindow,
             closeWindow: this.closeWindow,
             openWindow: this.openWindow,
-            iconizeWindow: this.iconizeWindow
+            iconizeWindow: this.iconizeWindow,
+            pinWindow: this.pinWindow
         });
     }
 
@@ -42,6 +46,10 @@ export default class Application extends React.Component {
     raiseWindow(id) {
         Actions.App.raise(id);
     }
+
+    pinWindow(id, state) {
+        Actions.App.pin(id, state);
+    }
     
     render() {
         let icons = this.props.app.windows
@@ -51,6 +59,10 @@ export default class Application extends React.Component {
                                                   iconizeWindow={this.iconizeWindow}
                                                   icon={w.props.icon} />);
 
+        let unpinned = this.props.app.windows.filter(w => !w.props.pinned);
+        let pinned = this.props.app.windows.filter(w => w.props.pinned);
+        let windows = unpinned.concat(pinned);
+        
         for (let i in icons) {
             icons[i] = React.cloneElement(icons[i], { x: i * (IconizedWindow.WIDTH + IconizedWindow.SPACER) });
         }
@@ -58,7 +70,7 @@ export default class Application extends React.Component {
         return (
             <g>
                 {icons}
-                {this.props.app.windows}
+                {windows}
             </g>
         );
     }

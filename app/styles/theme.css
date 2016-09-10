@@ -35,7 +35,7 @@ svg rect.outline {
 /* Window body */
 
 svg rect.body {
-    fill: #484850;
+    fill: #606068;
     stroke-width: 2px;
     stroke: #242428;
 }
@@ -43,13 +43,12 @@ svg rect.body {
 /* Button background color */
 
 svg g.button > rect {
-    fill: #111;
+    fill: #606068;
 }
 
 /* Button text color */
 
 svg g.button > g > text {
-    fill: #ddd;
     font-size: 10pt;
 }
 

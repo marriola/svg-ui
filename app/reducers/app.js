@@ -49,6 +49,20 @@ export default createReducer({
             };
         },
 
+        pin: function (state, action) {
+            let index = this.findWindow(state, action.id);
+            let topWindow = React.cloneElement(state.windows[index], { pinned: action.state });
+            
+            let windows = state.windows.slice(0, index)
+                               .concat(state.windows.slice(index + 1))
+                               .concat(topWindow);
+            
+            return {
+                ...state,
+                windows
+            };
+        },
+
         close: function (state, action) {
             let index = this.findWindow(state, action.id);
             let windows = state.windows.slice(0, index)

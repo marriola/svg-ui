@@ -52,6 +52,8 @@ let Image = ({
 Image.propTypes = {
     x: React.PropTypes.number,
     y: React.PropTypes.number,
+    sw: React.PropTypes.number,
+    sh: React.PropTypes.number,
     width: React.PropTypes.number,
     height: React.PropTypes.number,
     src: React.PropTypes.string
