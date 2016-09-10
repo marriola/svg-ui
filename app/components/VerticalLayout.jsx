@@ -14,14 +14,15 @@ export default class VerticalLayout extends React.Component {
     }
 
     componentWillMount() {
-        let panelHeight = this.props.height / this.props.size;
+        let size = this.props.children.length;
+        let panelHeight = this.props.height / size;
         let key = "vl" + uniqueIdentifier() + "-";
         let clipPaths = [];
         
-        for (let i = 0; i < this.props.size; i++) {
+        for (let i = 0; i < size; i++) {
             clipPaths.push(
                 <clipPath id={key+i}>
-                    <rect x={0} y={i * panelHeight} width={this.props.width} height={panelHeight} />
+                    <rect x={0} y={0} width={this.props.width} height={panelHeight} />
                 </clipPath>
             );
         }
@@ -35,7 +36,7 @@ export default class VerticalLayout extends React.Component {
             return (
                 <g transform={`translate(0, ${y})`}>
                     { React.cloneElement(e, {
-                          "clip-path": "url(#" + key + index + ")",
+                          "clipPath": "url(#" + key + index + ")",
                           x: 0, y: 0,
                           width: this.props.width,
                           height: panelHeight,

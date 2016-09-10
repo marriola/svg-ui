@@ -31,17 +31,24 @@ export default class Home extends React.Component {
         let src = "planets/" + planets[index] + ".png";
         let width = index == 5 ? 128 : 96;
         let height = index == 5 ? 89 : 96;
-        
+
+        /* <Text x="5" y="5" width="148" height="20" fill="#ddd">
+            Hello
+            </Text>
+            
+            <Image src={src} x={5} y={30} width={width} height={height} />
+          */
         window.openWindow(
             <Window x={this.state.x} y={this.state.y} width={148} height={156}
                     closeButton={true} iconizeButton={true}
                     title={title} key={uniqueIdentifier()}
                     icon={src}>
-                <Text x="5" y="5" width="148" height="20" fill="#ddd">
-                    Hello
-                </Text>
-                
-                <Image src={src} x={5} y={30} width={width} height={height} />
+                <VerticalLayout x="5" y="5" width="143" height="145">
+                    <Text halign="middle" valign="middle" fill="white">
+                        Hello from {title}
+                    </Text>
+                    <Image src={src} sw={width} sh={height} />
+                </VerticalLayout>
             </Window>
         );
 
