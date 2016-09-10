@@ -56,7 +56,7 @@ export default class Home extends React.Component {
         return (
             <Application store={this.props.store}>
                 <Window x={10} y={10} width={192} height={128}
-                        key={uniqueIdentifier()} title="hello"
+                        key={"winHello"} title="hello"
                         iconizeButton={true}>
                     <Button x={5} y={5} width={45} height={20}
                             click={this.openWindow.bind(this)}>
@@ -70,7 +70,7 @@ export default class Home extends React.Component {
                 </Window>
 
                 <Window x={320} y={240} width={192} height={192}
-                        key={uniqueIdentifier()} title="really really really really long title"
+                        key={"winMenu"} title="really really really really long title"
                         closeButton={true} iconizeButton={true}>
                     <Text x={5} y={25} width={128} height={20}>Really really really really long</Text>
                     <Menu>
@@ -89,7 +89,7 @@ export default class Home extends React.Component {
                 </Window>
 
                 <Window x={160} y={240} width={192} height={192}
-                        key={uniqueIdentifier()} title="Layout test"
+                        key={"winLayout"} title="Layout test"
                         closeButton={false}>
                     <VerticalLayout width={192} height={192} size={4}>
                         <Text valign="middle" halign="middle">One</Text>

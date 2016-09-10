@@ -1,11 +1,16 @@
 import React from "react";
 import { uniqueIdentifier } from "utils";
 
-// So far the only thing this class does is provide positioning and clipping.
-// If you're doing your own clipping, extending this class probably isn't worth it.
-
 export default class Control extends React.Component {
     render(content) {
+        // Since all we're doing is clipping for now, render the content unmodified
+        // if we're inside a layout control.
+        if (this.props.parent &&
+            this.props.parent.constructor &&
+            this.props.parent.constructor.name.endsWith("Layout")) {
+                return content;
+        }
+
         let { x, y, width, height } = this.props;
         let cpId = uniqueIdentifier();
         let cpUri = "url(#" + cpId + ")";

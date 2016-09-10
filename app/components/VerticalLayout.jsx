@@ -2,6 +2,7 @@ import React from "react";
 import autobind from "autobind-decorator";
 import { uniqueIdentifier } from "utils";
 
+@autobind
 export default class VerticalLayout extends React.Component {
     constructor(props) {
         super(props);
@@ -9,29 +10,30 @@ export default class VerticalLayout extends React.Component {
         this.state = {
             clipPaths: null,
             children: null,
-            panelHeight: this.props.height / this.props.size
         };
     }
 
-    render() {
+    componentWillMount() {
         let { clipPaths, clipPathIds, children } = this.state;
         
         if (!children) {
+            let panelHeight = this.props.height / this.props.size;
             let key = "vl" + uniqueIdentifier() + "-";
             clipPaths = [];
             
             for (let i = 0; i < this.props.size; i++) {
                 clipPaths.push(
                     <clipPath id={key+i}>
-                        <rect x={0} y={i * this.state.panelHeight} width={this.props.width} height={this.state.panelHeight} />
+                        <rect x={0} y={i * panelHeight} width={this.props.width} height={panelHeight} />
                     </clipPath>
                 );
             }
-        
+            
             let index = -1;
+            let that = this;
             let children = React.Children.map(this.props.children, e => {
-                ++index;
-                let y = index * this.state.panelHeight;
+               ++index;
+                let y = index * panelHeight;
                 
                 return (
                     <g transform={`translate(0, ${y})`}>
@@ -39,7 +41,8 @@ export default class VerticalLayout extends React.Component {
                               "clip-path": "url(#" + key + index + ")",
                               x: 0, y: 0,
                               width: this.props.width,
-                              height: this.state.panelHeight
+                              height: panelHeight,
+                              parent: that
                           }) }
                     </g>
                 );
@@ -47,14 +50,16 @@ export default class VerticalLayout extends React.Component {
 
             this.setState({ clipPaths, clipPathIds, children });
         }
-
+    }
+    
+    render() {
         return (
             <g>
                 <defs>
-                    {clipPaths}
+                    {this.state.clipPaths}
                 </defs>
 
-                {children}
+                {this.state.children}
             </g>
         );
     }

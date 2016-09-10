@@ -74,9 +74,10 @@ export default class Window extends React.Component {
         let outlineClass = this.state.moving ? null : "hidden";
         let windowClass = this.state.moving ? "hidden" : null;
 
+        let that = this;
         let children = React.Children.map(this.props.children, x => typeof x.type == "function" ? React.cloneElement(x, {
-            window: this,
-            parent: this
+            window: that,
+            parent: that
         }) : x);
 
         return (
